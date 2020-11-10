@@ -14,8 +14,12 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
     }
 
+
+
+
     public void commencer (View v){
         Intent intent = new Intent(this, Seance.class);
+        intent.putExtra("seance", "nouveau" );
         startActivity(intent);
     }
 }

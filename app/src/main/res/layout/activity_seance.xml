@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".Seance">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/top_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="361dp">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/bottom_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
