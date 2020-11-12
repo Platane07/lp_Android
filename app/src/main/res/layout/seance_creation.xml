@@ -17,6 +17,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textviewBallec2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tmps de Préparation :" />
+
+            <EditText
+                android:id="@+id/nom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
                 android:id="@+id/textviewBallec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,7 +146,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -142,7 +164,16 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/commencer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Commencer"
+            android:onClick="commencer"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

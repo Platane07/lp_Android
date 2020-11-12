@@ -25,7 +25,7 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="134dp"
-            android:onClick="commencer"
+            android:onClick="creer"
             android:text="Créer nouvel Entrainement" />
     </LinearLayout>
 

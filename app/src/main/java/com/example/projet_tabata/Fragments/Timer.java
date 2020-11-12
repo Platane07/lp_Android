@@ -1,4 +1,4 @@
-package com.example.projet_tabata.fragments;
+package com.example.projet_tabata.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +17,12 @@ public class Timer extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.seance_creation, container, false);
+        return inflater.inflate(R.layout.timer, container, false);
+    }
+
+    @Override
+    public void onResume(){
+
+
     }
 }

@@ -17,8 +17,8 @@ public class Home extends AppCompatActivity {
 
 
 
-    public void commencer (View v){
-        Intent intent = new Intent(this, Seance.class);
+    public void creer (View v){
+        Intent intent = new Intent(this, Seances.class);
         intent.putExtra("seance", "nouveau" );
         startActivity(intent);
     }
