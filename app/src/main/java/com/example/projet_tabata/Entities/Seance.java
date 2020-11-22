@@ -1,30 +1,56 @@
 package com.example.projet_tabata.Entities;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 @Entity
-public class Seance {
+public class Seance implements Serializable {
     @PrimaryKey (autoGenerate = true)
     public int userCreatorId;
     public String name;
     public int sequence;
     public int cycle;
+    public int travail;
     public int repos;
     public int reposSeq;
     public int preparation;
+    @Ignore
+    public ArrayList<String> seanceCycles;
 
-    public Seance(int userCreatorId, String name, int sequence, int cycle, int repos, int reposSeq, int preparation) {
-        this.userCreatorId = userCreatorId;
+    public Seance(String name, int sequence, int cycle, int travail, int repos, int reposSeq, int preparation) {
         this.name = name;
         this.sequence = sequence;
         this.cycle = cycle;
+        this.travail = travail;
         this.repos = repos;
         this.reposSeq = reposSeq;
         this.preparation = preparation;
+        seanceCycles = new ArrayList<>();
     }
+
+    public ArrayList getSeanceCycle() {
+        this.seanceCycles.clear();
+
+        seanceCycles.add("Préparation");
+
+        for (int i = 0; i < this.sequence; i++) {
+            for (int j = 0; j < this.cycle; j++) {
+                seanceCycles.add("Travail");
+                seanceCycles.add("Repos");
+            }
+            seanceCycles.add("Repos Sequence");
+        }
+        return seanceCycles;
+
+    }
+
+
 
     public int getUserCreatorId() {
         return userCreatorId;
@@ -76,6 +102,18 @@ public class Seance {
 
     public void setReposSeq(int reposSeq) {
         this.reposSeq = reposSeq;
+    }
+
+    public void setUserCreatorId(int userCreatorId) {
+        this.userCreatorId = userCreatorId;
+    }
+
+    public int getTravail() {
+        return travail;
+    }
+
+    public void setTravail(int travail) {
+        this.travail = travail;
     }
 
 }

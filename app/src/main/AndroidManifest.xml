@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetTabata">
-        <activity android:name=".Seances"></activity>
-        <activity android:name=".Home" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".Activities.Fin"></activity>
+        <activity android:name=".Activities.SeanceCreation" />
+        <activity android:name=".Activities.Seances" />
+        <activity android:name=".Activities.Home" />
+        <activity android:name=".Activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

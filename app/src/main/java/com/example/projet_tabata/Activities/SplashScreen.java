@@ -1,4 +1,4 @@
-package com.example.projet_tabata;
+package com.example.projet_tabata.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import com.example.projet_tabata.Activities.Home;
+import com.example.projet_tabata.R;
 
 public class SplashScreen extends AppCompatActivity {
     Animation anim;
@@ -25,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(getApplicationContext(),Home.class);
+                Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
                 // HomeActivity.class is the activity to go after showing the splash screen.
             }

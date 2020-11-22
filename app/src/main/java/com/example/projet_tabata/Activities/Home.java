@@ -1,10 +1,13 @@
-package com.example.projet_tabata;
+package com.example.projet_tabata.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.projet_tabata.Activities.SeanceCreation;
+import com.example.projet_tabata.R;
 
 public class Home extends AppCompatActivity {
 
@@ -18,8 +21,7 @@ public class Home extends AppCompatActivity {
 
 
     public void creer (View v){
-        Intent intent = new Intent(this, Seances.class);
-        intent.putExtra("seance", "nouveau" );
+        Intent intent = new Intent(this, SeanceCreation.class);
         startActivity(intent);
     }
 }

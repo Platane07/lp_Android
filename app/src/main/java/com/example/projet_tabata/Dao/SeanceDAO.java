@@ -14,8 +14,8 @@ import static java.nio.charset.CodingErrorAction.REPLACE;
 @Dao
 public interface SeanceDAO {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertSeance(Seance... seance);
+    @Insert
+    long insert(Seance seance);
 
     @Delete
     public void deleteSeance(Seance... seance);

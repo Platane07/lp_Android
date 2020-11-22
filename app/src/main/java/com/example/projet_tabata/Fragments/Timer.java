@@ -20,9 +20,4 @@ public class Timer extends Fragment {
         return inflater.inflate(R.layout.timer, container, false);
     }
 
-    @Override
-    public void onResume(){
-
-
-    }
 }
