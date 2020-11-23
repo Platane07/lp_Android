@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,9 @@ public class Seances extends AppCompatActivity implements Serializable {
     Seance seance;
     // VIEW
     private TextView timerView;
+    private TextView descriptif;
+    private Button onStart;
+    private int started = 2;
 
     // DATA
     private long updatedTime = INITIAL_TIME;
@@ -41,16 +45,17 @@ public class Seances extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_seances);
 
         // Récupérer les view
-        timerView = (TextView) findViewById(R.id.textView8);
+        timerView = findViewById(R.id.textView8);
+        descriptif = findViewById(R.id.Descriptif);
+        onStart = findViewById(R.id.onStart);
         seance = (Seance) getIntent().getSerializableExtra("Seance");
         Log.i("TAG", seance.name);
 
         seanceCycle = seance.getSeanceCycle();
 
-        updatedTime = seance.preparation;
+        updatedTime = seance.preparation*1000;
 
         miseAJour();
-        next();
     }
 
     // Mise à jour graphique
@@ -69,25 +74,67 @@ public class Seances extends AppCompatActivity implements Serializable {
 
     }
 
-    public void onStart(View view) {
-        next();
+    public void onBegin(View view) {
+        if (started == 2){
+            next();
+        }
+        else if (started == 1){
+            this.Start();
+        }
+        else {
+            this.Pause();
+        }
+    }
+
+    // Mettre en pause le compteur
+    public void Pause() {
+        if (timer != null) {
+            onStart.setText("Pause");
+            started = 1;
+            timer.cancel(); // Arrete le CountDownTimer
+        }
+
+    }
+    public void Start(){
+        onStart.setText("Start");
+        started = 0;
+        timer = new CountDownTimer(updatedTime, 10) {
+
+            public void onTick(long millisUntilFinished) {
+                updatedTime = millisUntilFinished;
+                miseAJour();
+            }
+
+            public void onFinish() {
+                updatedTime = 0;
+                miseAJour();
+                next();
+            }
+        }.start();
     }
 
 
 
     public void next() {
+        Log.i("etape", String.valueOf(etape));
+        started = 0;
 
         if (etape < seanceCycle.size()) {
             if (seanceCycle.get(etape) == "Preparation") {
+                descriptif.setText("Préparation");
                 startTimer(seance.preparation * 1000);
+
             }
             if (seanceCycle.get(etape) == "Travail") {
+                descriptif.setText("Travail");
                 startTimer(seance.travail * 1000);
             }
             if (seanceCycle.get(etape) == "Repos") {
+                descriptif.setText("Repos");
                 startTimer(seance.repos * 1000);
             }
             if (seanceCycle.get(etape) == "Repos Sequence") {
+                descriptif.setText("Repos Sequence");
                 startTimer(seance.reposSeq * 1000);
             }
             etape++;
@@ -115,14 +162,6 @@ public class Seances extends AppCompatActivity implements Serializable {
 
             }
         }.start();
-    }
-
-
-    // Mettre en pause le compteur
-    public void onPause(View view) {
-        if (timer != null) {
-            timer.cancel(); // Arrete le CountDownTimer
-        }
     }
 
     // Remettre à le compteur à la valeur initiale

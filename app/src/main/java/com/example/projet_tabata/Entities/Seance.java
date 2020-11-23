@@ -37,7 +37,7 @@ public class Seance implements Serializable {
     public ArrayList getSeanceCycle() {
         this.seanceCycles.clear();
 
-        seanceCycles.add("Préparation");
+        seanceCycles.add("Preparation");
 
         for (int i = 0; i < this.sequence; i++) {
             for (int j = 0; j < this.cycle; j++) {
