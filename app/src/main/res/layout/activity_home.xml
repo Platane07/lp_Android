@@ -9,7 +9,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:clickable="false"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
 
         <TextView
             android:id="@+id/textView6"
@@ -20,7 +24,7 @@
         <ListView
             android:id="@+id/listSeances"
             android:layout_width="match_parent"
-            android:layout_height="135dp" />
+            android:layout_height="574dp" />
 
         <Button
             android:id="@+id/button"
