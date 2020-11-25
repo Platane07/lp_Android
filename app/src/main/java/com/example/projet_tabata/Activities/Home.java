@@ -44,7 +44,7 @@ public class Home extends AppCompatActivity {
 
 
     public void creer (View v){
-        Intent intent = new Intent(this, SeanceCreation.class);
+        Intent intent = new Intent(this, FragmentSeanceCreation.class);
         startActivity(intent);
     }
     public void AfficheSeances() {
