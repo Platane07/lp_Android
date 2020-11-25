@@ -3,6 +3,9 @@ package com.example.projet_tabata.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -26,6 +29,7 @@ public class Seances extends AppCompatActivity implements Serializable {
 
     private final static long INITIAL_TIME = 5000;
 
+    Bundle cycle;
     Seance seance;
     // VIEW
     private TextView timerView;
@@ -38,6 +42,7 @@ public class Seances extends AppCompatActivity implements Serializable {
     private CountDownTimer timer;
     public int etape = 0;
     ArrayList<String> seanceCycle;
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,13 @@ public class Seances extends AppCompatActivity implements Serializable {
         seanceCycle = seance.getSeanceCycle();
 
         updatedTime = seance.preparation*1000;
+
+
+        if (cycle != null){
+            updatedTime = cycle.getLong("updatedTime");
+            etape = cycle.getInt("etape")-1;
+            next();
+        }
 
         miseAJour();
     }
@@ -89,14 +101,14 @@ public class Seances extends AppCompatActivity implements Serializable {
     // Mettre en pause le compteur
     public void Pause() {
         if (timer != null) {
-            onStart.setText("Pause");
+            onStart.setText("Start");
             started = 1;
             timer.cancel(); // Arrete le CountDownTimer
         }
 
     }
     public void Start(){
-        onStart.setText("Start");
+        onStart.setText("Pause");
         started = 0;
         timer = new CountDownTimer(updatedTime, 10) {
 
@@ -122,19 +134,27 @@ public class Seances extends AppCompatActivity implements Serializable {
         if (etape < seanceCycle.size()) {
             if (seanceCycle.get(etape) == "Preparation") {
                 descriptif.setText("Préparation");
+                play();
+                getWindow().getDecorView().setBackgroundColor(Color.RED);
                 startTimer(seance.preparation * 1000);
 
             }
             if (seanceCycle.get(etape) == "Travail") {
                 descriptif.setText("Travail");
+                play();
+                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                 startTimer(seance.travail * 1000);
             }
             if (seanceCycle.get(etape) == "Repos") {
                 descriptif.setText("Repos");
+                play();
+                getWindow().getDecorView().setBackgroundColor(Color.RED);
                 startTimer(seance.repos * 1000);
             }
             if (seanceCycle.get(etape) == "Repos Sequence") {
                 descriptif.setText("Repos Sequence");
+                play();
+                getWindow().getDecorView().setBackgroundColor(Color.RED);
                 startTimer(seance.reposSeq * 1000);
             }
             etape++;
@@ -179,21 +199,38 @@ public class Seances extends AppCompatActivity implements Serializable {
         miseAJour();
     }
 
-    public HashMap createInitialTable(Seance seance) {
-        HashMap<String, Integer> mapSeance = new HashMap<String, Integer>();
 
-        mapSeance.put("Préparation", seance.preparation);
-
-        for (int i = 0; i < seance.sequence; i++) {
-            for (int j = 0; j < seance.cycle; j++) {
-                mapSeance.put("Travail", seance.travail);
-                mapSeance.put("Repos", seance.repos);
-            }
-            mapSeance.put("Repos Long", seance.reposSeq);
-        }
-        return mapSeance;
-
+    public void play(){
+        player = null;
+        player = MediaPlayer.create(this, R.raw.bell);
+        player.start();
     }
+
+    public void onSaveInstanceState(Bundle cycle) {
+        super.onSaveInstanceState(cycle);
+        Pause();
+        cycle.putLong("updatedTime", updatedTime);
+        cycle.putInt("etape", etape);
+    }
+/*
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            onSaveInstanceState(cycle);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            onSaveInstanceState(cycle);
+        }
+    }
+
+
+
+*/
+
+
+
+
 
 /*
     @Override

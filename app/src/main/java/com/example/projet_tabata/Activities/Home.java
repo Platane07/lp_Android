@@ -93,8 +93,6 @@ public class Home extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), Seances.class);
                         intent.putExtra("Seance",seances.get(i));
                         startActivity(intent);
-
-
                     }
                 });
 
