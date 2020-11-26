@@ -22,6 +22,8 @@ public class Seance implements Serializable {
     public int preparation;
     @Ignore
     public ArrayList<String> seanceCycles;
+    @Ignore
+    public int tempsTotal;
 
     public Seance(String name, int sequence, int cycle, int travail, int repos, int reposSeq, int preparation) {
         this.name = name;
@@ -37,16 +39,25 @@ public class Seance implements Serializable {
     public ArrayList getSeanceCycle() {
         this.seanceCycles.clear();
 
-        seanceCycles.add("Preparation");
+        this.seanceCycles.add("Preparation");
 
         for (int i = 0; i < this.sequence; i++) {
             for (int j = 0; j < this.cycle; j++) {
-                seanceCycles.add("Travail");
-                seanceCycles.add("Repos");
+                this.seanceCycles.add("Travail");
+                this.seanceCycles.add("Repos");
             }
-            seanceCycles.add("Repos Sequence");
+            this.seanceCycles.add("Repos Sequence");
         }
-        return seanceCycles;
+        return this.seanceCycles;
+
+    }
+
+    public int getTempsTotal(){
+        this.tempsTotal = 0;
+
+        this.tempsTotal = this.preparation + ((this.travail + this.repos)*this.cycle + this.reposSeq)*this.sequence;
+
+        return this.tempsTotal;
 
     }
 

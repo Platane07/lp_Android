@@ -13,6 +13,8 @@ import com.example.projet_tabata.R;
 
 public class NbCycles extends Fragment {
 
+    NumberPicker nbCycles;
+
 
     public NbCycles() {
         // Required empty public constructor
@@ -30,9 +32,22 @@ public class NbCycles extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        NumberPicker nbCycles = getView().findViewById(R.id.nbCycles);
+        nbCycles = getView().findViewById(R.id.nbCycles);
+
+        if (savedInstanceState != null){
+            nbCycles.setValue(savedInstanceState.getInt("nbCycles"));
+        }
         nbCycles.setMaxValue(100);
         nbCycles.setMinValue(0);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle Save) {
+        super.onSaveInstanceState(Save);
+
+        Save.putInt("nbCycles", nbCycles.getValue());
+
+
     }
 
 

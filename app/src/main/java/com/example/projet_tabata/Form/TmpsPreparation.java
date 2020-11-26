@@ -13,15 +13,32 @@ import com.example.projet_tabata.R;
 
 public class TmpsPreparation extends Fragment {
 
+    NumberPicker minPrep;
+    NumberPicker secPrep;
+
+
+
     public TmpsPreparation() {
-        // Required empty public constructor
+        /*TmpsPreparation tmpsPreparation = new TmpsPreparation();
+        return tmpsPreparation;*/
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.form_tmps_preparation, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.form_tmps_preparation, container, false);
+        minPrep = view.findViewById(R.id.minutesTmpsPreparation);
+        secPrep = view.findViewById(R.id.secondesTmpsPreparation);
+
+        if (savedInstanceState != null){
+            minPrep.setValue(savedInstanceState.getInt("minPrep"));
+            secPrep.setValue(savedInstanceState.getInt("secPrep"));
+        }
+
+
+        return view;
     }
 
 
@@ -30,13 +47,22 @@ public class TmpsPreparation extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        NumberPicker minPrep = getView().findViewById(R.id.minutesTmpsPreparation);
-        NumberPicker secPrep = getView().findViewById(R.id.secondesTmpsPreparation);
 
         minPrep.setMaxValue(30);
         minPrep.setMinValue(0);
         secPrep.setMaxValue(60);
         secPrep.setMinValue(0);
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle Save) {
+        super.onSaveInstanceState(Save);
+
+        Save.putInt("minPrep", minPrep.getValue());
+        Save.putInt("secPrep", secPrep.getValue());
+
+
     }
 
 }

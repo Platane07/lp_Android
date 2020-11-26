@@ -3,6 +3,7 @@ package com.example.projet_tabata.Activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
@@ -12,8 +13,10 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projet_tabata.Database.DatabaseClient;
@@ -32,13 +35,14 @@ public class FragmentSeanceCreation extends AppCompatActivity {
 
     String[] etapeFragments  = {"RIEN","tmpsPreparation","nbSequences", "nbCycles", "tmpsTravail", "tmpsReposCycle", "tmpsReposSequence","commencer"};
     String nom;
-    int etape = 0;
-    int tmpsPreparation;
-    int nbSequences;
-    int nbCycles;
-    int tmpsTravail;
-    int tmpsReposCycle;
-    int tmpsReposSequences;
+    Button next;
+    public int etape = 0;
+    public int tmpsPreparation;
+    public int nbSequences;
+    public int nbCycles;
+    public int tmpsTravail;
+    public int tmpsReposCycle;
+    public int tmpsReposSequences;
     Seance newSeance;
 
     @Override
@@ -48,11 +52,11 @@ public class FragmentSeanceCreation extends AppCompatActivity {
 
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
-        Fragment tmpsPreparation = new TmpsPreparation();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment, tmpsPreparation);
-        transaction.commit();
+        next = findViewById(R.id.Next);
 
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().addToBackStack("preparationFrag").replace(R.id.fragment, new TmpsPreparation(), "preparationFrag").commit();
+        }
 
 
 
@@ -60,19 +64,6 @@ public class FragmentSeanceCreation extends AppCompatActivity {
 
     public void Next(View v){
         nextForm();
-    }
-
-
-    public void Commencer(View v){
-        if (newSeance == null) {
-            newSeance = new Seance("", nbSequences, nbCycles, tmpsTravail, tmpsReposCycle, tmpsReposSequences, tmpsPreparation);
-        }
-        Intent intent = new Intent(this, Seances.class);
-        Log.i("WOULARDINEMOUKBEBEKTARTINEAUFOUTRE", newSeance.name);
-        intent.putExtra("Seance", newSeance);
-        startActivity(intent);
-
-
     }
 
     public void Sauvegarder(View v){
@@ -88,7 +79,8 @@ public class FragmentSeanceCreation extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 nom = input.getText().toString();
-                newSeance = new Seance(nom, nbSequences, nbCycles, tmpsTravail, tmpsReposCycle, tmpsReposSequences, tmpsPreparation);
+                newSeance.name = nom;
+                //newSeance = new Seance(nom, nbSequences, nbCycles, tmpsTravail, tmpsReposCycle, tmpsReposSequences, tmpsPreparation);
                 class InsertSeanceInDB extends AsyncTask<Void, Void, Void> {
 
                     @Override
@@ -130,10 +122,7 @@ public class FragmentSeanceCreation extends AppCompatActivity {
                     break;
                 }
                 tmpsPreparation = tmpsMinPreparationPicker.getValue()*60 + tmpsSecPreparationPicker.getValue();
-                Fragment nbSequencesFragment = new NbSequences();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment, nbSequencesFragment);
-                transaction.commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("sequencesFrag").replace(R.id.fragment, new NbSequences(), "sequencesFrag").commit();
                 break;
             case "nbSequences":
                 NumberPicker nbSequencesPicker = findViewById((R.id.nbSequences));
@@ -143,10 +132,7 @@ public class FragmentSeanceCreation extends AppCompatActivity {
                     break;
                 }
                 nbSequences = nbSequencesPicker.getValue();
-                Fragment nbCyclesFragment = new NbCycles();
-                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-                transaction2.replace(R.id.fragment, nbCyclesFragment);
-                transaction2.commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("cyclesFrag").replace(R.id.fragment, new NbCycles(), "cyclesFrag").commit();
                 break;
             case "nbCycles":
                 NumberPicker nbCyclesPicker = findViewById((R.id.nbCycles));
@@ -156,10 +142,7 @@ public class FragmentSeanceCreation extends AppCompatActivity {
                     break;
                 }
                 nbCycles = nbCyclesPicker.getValue();
-                Fragment tmpsTravailFragment = new TmpsTravail();
-                FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                transaction3.replace(R.id.fragment, tmpsTravailFragment);
-                transaction3.commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("travailFrag").replace(R.id.fragment, new TmpsTravail(), "travailFrag").commit();
                 break;
             case "tmpsTravail":
                 NumberPicker tmpsMinTravailPicker = findViewById((R.id.minutesTmpsTravail));
@@ -170,10 +153,7 @@ public class FragmentSeanceCreation extends AppCompatActivity {
                     break;
                 }
                 tmpsTravail = tmpsMinTravailPicker.getValue()*60 + tmpsSecTravailPicker.getValue();
-                Fragment tmpsReposCyclesFragment = new TmpsRepos();
-                FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
-                transaction4.replace(R.id.fragment, tmpsReposCyclesFragment);
-                transaction4.commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("reposFrag").replace(R.id.fragment, new TmpsRepos(), "reposFrag").commit();
                 break;
             case "tmpsReposCycle":
                 NumberPicker tmpsMinReposPicker = findViewById((R.id.minutesTmpsRepos));
@@ -184,10 +164,7 @@ public class FragmentSeanceCreation extends AppCompatActivity {
                     break;
                 }
                 tmpsTravail = tmpsMinReposPicker.getValue()*60 + tmpsSecReposPicker.getValue();
-                Fragment tmpsReposSequenceFragment = new TmpsReposSequence();
-                FragmentTransaction transaction5 = getSupportFragmentManager().beginTransaction();
-                transaction5.replace(R.id.fragment, tmpsReposSequenceFragment);
-                transaction5.commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("reposLongFrag").replace(R.id.fragment, new TmpsReposSequence(), "reposLongFrag").commit();
                 break;
             case "tmpsReposSequence":
                 NumberPicker tmpsMinReposSequencePicker = findViewById((R.id.secondesTmpsReposSequence));
@@ -198,14 +175,59 @@ public class FragmentSeanceCreation extends AppCompatActivity {
                     break;
                 }
                 tmpsReposSequences = tmpsMinReposSequencePicker.getValue()*60 + tmpsSecReposSequencePicker.getValue();
-                Fragment commencerFragment = new Commencer();
-                FragmentTransaction transaction6 = getSupportFragmentManager().beginTransaction();
-                transaction6.replace(R.id.fragment, commencerFragment);
-                transaction6.commit();
+                next.setText("Commencer la séance");
+                newSeance = new Seance("", nbSequences, nbCycles, tmpsTravail, tmpsReposCycle, tmpsReposSequences, tmpsPreparation);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Seance", newSeance);
+                Fragment commencer = new Commencer();
+                commencer.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().addToBackStack("commencer").replace(R.id.fragment, commencer, "commencer").commit();
                 break;
+            case "commencer":
+                if (newSeance == null) {
+                    newSeance = new Seance("", nbSequences, nbCycles, tmpsTravail, tmpsReposCycle, tmpsReposSequences, tmpsPreparation);
+                }
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                Intent intent = new Intent(this, Seances.class);
+                Log.i("WOULARDINEMOUKBEBEKTARTINEAUFOUTRE", newSeance.name);
+                intent.putExtra("Seance", newSeance);
+                startActivity(intent);
+                break;
+
         }
 
     }
 
+    public void recapitulatif(){
+        TextView editPrep =  findViewById(R.id.EditPrep);
+        Log.i("tmpsPreparation", String.valueOf(tmpsPreparation));
+        editPrep.setText(String.valueOf(tmpsPreparation));
+        TextView editSeq =  findViewById(R.id.EditSeq);
+        editSeq.setText(nbSequences);
+        TextView editCycles =  findViewById(R.id.EditCycles);
+        editCycles.setText(nbCycles);
+        TextView editRepos =  findViewById(R.id.EditRepos);
+        editRepos.setText(tmpsReposCycle);
+        TextView editReposSeq =  findViewById(R.id.EditReposLong);
+        editReposSeq.setText(tmpsReposSequences);
+        TextView editTravail =  findViewById(R.id.EditTravail);
+        editTravail.setText(nbSequences);
+        TextView tempsTotal =  findViewById(R.id.TempsTotal);
+        tempsTotal.setText("oui");
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0){
+            etape--;
+            fm.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void passDataIn(){}
 
 }

@@ -34,6 +34,7 @@ public class Seances extends AppCompatActivity implements Serializable {
     // VIEW
     private TextView timerView;
     private TextView descriptif;
+    private TextView descriptif2;
     private Button onStart;
     private int started = 2;
 
@@ -52,6 +53,7 @@ public class Seances extends AppCompatActivity implements Serializable {
         // Récupérer les view
         timerView = findViewById(R.id.textView8);
         descriptif = findViewById(R.id.Descriptif);
+        descriptif2 = findViewById(R.id.Descriptif2);
         onStart = findViewById(R.id.onStart);
         seance = (Seance) getIntent().getSerializableExtra("Seance");
         Log.i("TAG", seance.name);
@@ -133,7 +135,8 @@ public class Seances extends AppCompatActivity implements Serializable {
 
         if (etape < seanceCycle.size()) {
             if (seanceCycle.get(etape) == "Preparation") {
-                descriptif.setText("Préparation");
+                descriptif.setText(seanceCycle.get(etape));
+                descriptif2.setText(seanceCycle.get(etape+1));
                 play();
                 getWindow().getDecorView().setBackgroundColor(Color.RED);
                 startTimer(seance.preparation * 1000);

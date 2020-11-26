@@ -13,6 +13,9 @@ import com.example.projet_tabata.R;
 
 public class TmpsReposSequence extends Fragment {
 
+    NumberPicker minReposSeq;
+    NumberPicker secReposSeq;
+
     public TmpsReposSequence() {
         // Required empty public constructor
     }
@@ -29,12 +32,27 @@ public class TmpsReposSequence extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        NumberPicker minRepos = getView().findViewById(R.id.minutesTmpsReposSequence);
-        NumberPicker secRepos = getView().findViewById(R.id.secondesTmpsReposSequence);
+         minReposSeq = getView().findViewById(R.id.minutesTmpsReposSequence);
+         secReposSeq = getView().findViewById(R.id.secondesTmpsReposSequence);
 
-        minRepos.setMaxValue(30);
-        minRepos.setMinValue(0);
-        secRepos.setMaxValue(60);
-        secRepos.setMinValue(0);
+        if (savedInstanceState != null){
+            minReposSeq.setValue(savedInstanceState.getInt("minReposSeq"));
+            secReposSeq.setValue(savedInstanceState.getInt("secReposSeq"));
+        }
+
+        minReposSeq.setMaxValue(30);
+        minReposSeq.setMinValue(0);
+        secReposSeq.setMaxValue(60);
+        secReposSeq.setMinValue(0);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle Save) {
+        super.onSaveInstanceState(Save);
+
+        Save.putInt("minReposSeq", minReposSeq.getValue());
+        Save.putInt("secReposSeq", secReposSeq.getValue());
+
+
     }
 }

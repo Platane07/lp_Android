@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 import com.example.projet_tabata.R;
 
 public class TmpsTravail extends Fragment {
+;
+    NumberPicker minTravail;
+    NumberPicker secTravail;
 
     public TmpsTravail() {
         // Required empty public constructor
@@ -28,12 +31,27 @@ public class TmpsTravail extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        NumberPicker minPrep = getView().findViewById(R.id.minutesTmpsTravail);
-        NumberPicker secPrep = getView().findViewById(R.id.minutesTmpsTravail);
+         minTravail = getView().findViewById(R.id.minutesTmpsTravail);
+         secTravail = getView().findViewById(R.id.secondesTmpsTravail);
 
-        minPrep.setMaxValue(30);
-        minPrep.setMinValue(0);
-        secPrep.setMaxValue(60);
-        secPrep.setMinValue(0);
+        if (savedInstanceState != null){
+            minTravail.setValue(savedInstanceState.getInt("minTravail"));
+            secTravail.setValue(savedInstanceState.getInt("secTravai"));
+        }
+
+        minTravail.setMaxValue(30);
+        minTravail.setMinValue(0);
+        secTravail.setMaxValue(60);
+        secTravail.setMinValue(0);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle Save) {
+        super.onSaveInstanceState(Save);
+
+        Save.putInt("minTravail", minTravail.getValue());
+        Save.putInt("secTravail", secTravail.getValue());
+
+
     }
 }

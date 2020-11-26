@@ -13,6 +13,9 @@ import com.example.projet_tabata.R;
 
 public class TmpsRepos extends Fragment {
 
+    NumberPicker minTmpsRepos;
+    NumberPicker secTmpsRepos;
+
     public TmpsRepos() {
         // Required empty public constructor
     }
@@ -29,12 +32,27 @@ public class TmpsRepos extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        NumberPicker minTmpsRepos = getView().findViewById(R.id.minutesTmpsRepos);
-        NumberPicker secTmpsRepos = getView().findViewById(R.id.secondesTmpsRepos);
+        minTmpsRepos = getView().findViewById(R.id.minutesTmpsRepos);
+        secTmpsRepos = getView().findViewById(R.id.secondesTmpsRepos);
 
+
+        if (savedInstanceState != null){
+            minTmpsRepos.setValue(savedInstanceState.getInt("minRepos"));
+            secTmpsRepos.setValue(savedInstanceState.getInt("secRepos"));
+        }
         minTmpsRepos.setMaxValue(30);
         minTmpsRepos.setMinValue(0);
         secTmpsRepos.setMaxValue(60);
         secTmpsRepos.setMinValue(0);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle Save) {
+        super.onSaveInstanceState(Save);
+
+        Save.putInt("minRepos", minTmpsRepos.getValue());
+        Save.putInt("secRepos", minTmpsRepos.getValue());
+
+
     }
 }
