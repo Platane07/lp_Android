@@ -35,9 +35,9 @@ public class SeanceCreation extends AppCompatActivity {
         String nom = Nom.getText().toString();
         EditText TmpsPreparation = findViewById(R.id.tmpsPreparation);
         int tmpsPreparation = Integer.parseInt(String.valueOf(TmpsPreparation.getText()));
-        EditText NbSequences = findViewById(R.id.nbSequences);
+        EditText NbSequences = findViewById(R.id.Sequences);
         int nbSequences = Integer.parseInt(String.valueOf(NbSequences.getText()));
-        EditText NbCycles = findViewById(R.id.nbCycles);
+        EditText NbCycles = findViewById(R.id.Cycles);
         int nbCycles = Integer.parseInt(String.valueOf(NbCycles.getText()));
         EditText TmpsTravail = findViewById(R.id.tmpsTravail);
         int tmpsTravail =Integer.parseInt(String.valueOf(TmpsTravail.getText()));

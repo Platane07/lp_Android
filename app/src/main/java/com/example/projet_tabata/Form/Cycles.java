@@ -11,48 +11,46 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projet_tabata.R;
 
-public class TmpsRepos extends Fragment {
+public class Cycles extends Fragment {
 
-    NumberPicker minTmpsRepos;
-    NumberPicker secTmpsRepos;
+    NumberPicker cycles;
 
-    public TmpsRepos() {
+
+    public Cycles() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.form_tmps_repos, container, false);
-    }
+        return inflater.inflate(R.layout.form_nb_cycles, container, false);
 
+
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        minTmpsRepos = getView().findViewById(R.id.minutesTmpsRepos);
-        secTmpsRepos = getView().findViewById(R.id.secondesTmpsRepos);
-
+        cycles = getView().findViewById(R.id.Cycles);
 
         if (savedInstanceState != null){
-            minTmpsRepos.setValue(savedInstanceState.getInt("minRepos"));
-            secTmpsRepos.setValue(savedInstanceState.getInt("secRepos"));
+            cycles.setValue(savedInstanceState.getInt("cycles"));
+        } else {
+            cycles.setValue(5);
         }
-        minTmpsRepos.setMaxValue(30);
-        minTmpsRepos.setMinValue(0);
-        secTmpsRepos.setMaxValue(60);
-        secTmpsRepos.setMinValue(0);
+        cycles.setMaxValue(100);
+        cycles.setMinValue(0);
     }
 
     @Override
     public void onSaveInstanceState(Bundle Save) {
         super.onSaveInstanceState(Save);
 
-        Save.putInt("minRepos", minTmpsRepos.getValue());
-        Save.putInt("secRepos", minTmpsRepos.getValue());
+        Save.putInt("cycles", cycles.getValue());
 
 
     }
+
+
 }

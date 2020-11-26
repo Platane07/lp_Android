@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projet_tabata.R;
 
-public class TmpsReposSequence extends Fragment {
+public class Repos extends Fragment {
 
-    NumberPicker minReposSeq;
-    NumberPicker secReposSeq;
+    NumberPicker minRepos;
+    NumberPicker secRepos;
 
-    public TmpsReposSequence() {
+    public Repos() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class TmpsReposSequence extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.form_tmps_repos_sequence, container, false);
+        return inflater.inflate(R.layout.form_tmps_repos, container, false);
     }
 
     @Override
@@ -32,26 +32,26 @@ public class TmpsReposSequence extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-         minReposSeq = getView().findViewById(R.id.minutesTmpsReposSequence);
-         secReposSeq = getView().findViewById(R.id.secondesTmpsReposSequence);
+        minRepos = getView().findViewById(R.id.MinRepos);
+        secRepos = getView().findViewById(R.id.SecRepos);
+
 
         if (savedInstanceState != null){
-            minReposSeq.setValue(savedInstanceState.getInt("minReposSeq"));
-            secReposSeq.setValue(savedInstanceState.getInt("secReposSeq"));
+            minRepos.setValue(savedInstanceState.getInt("minRepos"));
+            secRepos.setValue(savedInstanceState.getInt("secRepos"));
         }
-
-        minReposSeq.setMaxValue(30);
-        minReposSeq.setMinValue(0);
-        secReposSeq.setMaxValue(60);
-        secReposSeq.setMinValue(0);
+        minRepos.setMaxValue(30);
+        minRepos.setMinValue(0);
+        secRepos.setMaxValue(60);
+        secRepos.setMinValue(0);
     }
 
     @Override
     public void onSaveInstanceState(Bundle Save) {
         super.onSaveInstanceState(Save);
 
-        Save.putInt("minReposSeq", minReposSeq.getValue());
-        Save.putInt("secReposSeq", secReposSeq.getValue());
+        Save.putInt("minRepos", minRepos.getValue());
+        Save.putInt("secRepos", minRepos.getValue());
 
 
     }

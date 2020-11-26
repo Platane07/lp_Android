@@ -5,9 +5,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @Entity
 public class Seance implements Serializable {
@@ -18,20 +16,20 @@ public class Seance implements Serializable {
     public int cycle;
     public int travail;
     public int repos;
-    public int reposSeq;
+    public int reposLong;
     public int preparation;
     @Ignore
     public ArrayList<String> seanceCycles;
     @Ignore
     public int tempsTotal;
 
-    public Seance(String name, int sequence, int cycle, int travail, int repos, int reposSeq, int preparation) {
+    public Seance(String name, int sequence, int cycle, int travail, int repos, int reposLong, int preparation) {
         this.name = name;
         this.sequence = sequence;
         this.cycle = cycle;
         this.travail = travail;
         this.repos = repos;
-        this.reposSeq = reposSeq;
+        this.reposLong = reposLong;
         this.preparation = preparation;
         seanceCycles = new ArrayList<>();
     }
@@ -55,7 +53,7 @@ public class Seance implements Serializable {
     public int getTempsTotal(){
         this.tempsTotal = 0;
 
-        this.tempsTotal = this.preparation + ((this.travail + this.repos)*this.cycle + this.reposSeq)*this.sequence;
+        this.tempsTotal = this.preparation + ((this.travail + this.repos)*this.cycle + this.reposLong)*this.sequence;
 
         return this.tempsTotal;
 
@@ -83,8 +81,8 @@ public class Seance implements Serializable {
         return repos;
     }
 
-    public int getReposSeq() {
-        return reposSeq;
+    public int getReposLong() {
+        return reposLong;
     }
 
     public int getPreparation() {
@@ -111,8 +109,8 @@ public class Seance implements Serializable {
         this.preparation = preparation;
     }
 
-    public void setReposSeq(int reposSeq) {
-        this.reposSeq = reposSeq;
+    public void setReposLong(int reposLong) {
+        this.reposLong = reposLong;
     }
 
     public void setUserCreatorId(int userCreatorId) {

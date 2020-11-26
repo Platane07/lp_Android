@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,27 +21,27 @@ import android.widget.Toast;
 import com.example.projet_tabata.Database.DatabaseClient;
 import com.example.projet_tabata.Entities.Seance;
 import com.example.projet_tabata.Form.Commencer;
-import com.example.projet_tabata.Form.NbCycles;
-import com.example.projet_tabata.Form.NbSequences;
-import com.example.projet_tabata.Form.TmpsPreparation;
-import com.example.projet_tabata.Form.TmpsRepos;
-import com.example.projet_tabata.Form.TmpsReposSequence;
-import com.example.projet_tabata.Form.TmpsTravail;
+import com.example.projet_tabata.Form.Cycles;
+import com.example.projet_tabata.Form.Sequences;
+import com.example.projet_tabata.Form.Preparation;
+import com.example.projet_tabata.Form.Repos;
+import com.example.projet_tabata.Form.ReposLong;
+import com.example.projet_tabata.Form.Travail;
 import com.example.projet_tabata.R;
 
-public class FragmentSeanceCreation extends AppCompatActivity {
+public class CreateSeance extends AppCompatActivity {
     private DatabaseClient mDb;
 
     String[] etapeFragments  = {"RIEN","tmpsPreparation","nbSequences", "nbCycles", "tmpsTravail", "tmpsReposCycle", "tmpsReposSequence","commencer"};
     String nom;
     Button next;
     public int etape = 0;
-    public int tmpsPreparation;
-    public int nbSequences;
-    public int nbCycles;
-    public int tmpsTravail;
-    public int tmpsReposCycle;
-    public int tmpsReposSequences;
+    public int preparation;
+    public int sequences;
+    public int cycles;
+    public int travail;
+    public int repos;
+    public int reposLong;
     Seance newSeance;
 
     @Override
@@ -55,7 +54,7 @@ public class FragmentSeanceCreation extends AppCompatActivity {
         next = findViewById(R.id.Next);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().addToBackStack("preparationFrag").replace(R.id.fragment, new TmpsPreparation(), "preparationFrag").commit();
+            getSupportFragmentManager().beginTransaction().addToBackStack("preparationFrag").replace(R.id.fragment, new Preparation(), "preparationFrag").commit();
         }
 
 
@@ -87,8 +86,6 @@ public class FragmentSeanceCreation extends AppCompatActivity {
                     protected Void doInBackground(Void... voids){
 
                         mDb.getAppDatabase().seanceDao().insert(newSeance);
-                        Log.i("WOULARDINEMOUK", newSeance.name);
-                        //Toast.makeText(getApplicationContext() ,"INSERTION ANALE", Toast.LENGTH_SHORT).show();
                         return null;
                     }
 
@@ -114,69 +111,69 @@ public class FragmentSeanceCreation extends AppCompatActivity {
         etape++;
         switch (etapeFragments[etape]){
             case "tmpsPreparation":
-                NumberPicker tmpsMinPreparationPicker = findViewById((R.id.minutesTmpsPreparation));
-                NumberPicker tmpsSecPreparationPicker = findViewById((R.id.secondesTmpsPreparation));
+                NumberPicker tmpsMinPreparationPicker = findViewById((R.id.MinPreparation));
+                NumberPicker tmpsSecPreparationPicker = findViewById((R.id.SecPreparation));
                 if (tmpsMinPreparationPicker.getValue() == 0 && tmpsSecPreparationPicker.getValue() == 0){
                     Toast.makeText(getApplicationContext(),"Pas de préparation dans votre séance ? vous risqueriez de vous déchirer un muscle", Toast.LENGTH_SHORT);
                     etape--;
                     break;
                 }
-                tmpsPreparation = tmpsMinPreparationPicker.getValue()*60 + tmpsSecPreparationPicker.getValue();
-                getSupportFragmentManager().beginTransaction().addToBackStack("sequencesFrag").replace(R.id.fragment, new NbSequences(), "sequencesFrag").commit();
+                preparation = tmpsMinPreparationPicker.getValue()*60 + tmpsSecPreparationPicker.getValue();
+                getSupportFragmentManager().beginTransaction().addToBackStack("sequencesFrag").replace(R.id.fragment, new Sequences(), "sequencesFrag").commit();
                 break;
             case "nbSequences":
-                NumberPicker nbSequencesPicker = findViewById((R.id.nbSequences));
+                NumberPicker nbSequencesPicker = findViewById((R.id.Sequences));
                 if (nbSequencesPicker.getValue() == 0){
                     Toast.makeText(getApplicationContext(),"Pas de séquences dans votre séance ? vous êtes cons", Toast.LENGTH_SHORT);
                     etape--;
                     break;
                 }
-                nbSequences = nbSequencesPicker.getValue();
-                getSupportFragmentManager().beginTransaction().addToBackStack("cyclesFrag").replace(R.id.fragment, new NbCycles(), "cyclesFrag").commit();
+                sequences = nbSequencesPicker.getValue();
+                getSupportFragmentManager().beginTransaction().addToBackStack("cyclesFrag").replace(R.id.fragment, new Cycles(), "cyclesFrag").commit();
                 break;
             case "nbCycles":
-                NumberPicker nbCyclesPicker = findViewById((R.id.nbCycles));
+                NumberPicker nbCyclesPicker = findViewById((R.id.Cycles));
                 if (nbCyclesPicker.getValue() == 0){
                     Toast.makeText(getApplicationContext(),"Pas de Cycles dans votre séance ? vous êtes cons", Toast.LENGTH_SHORT);
                     etape--;
                     break;
                 }
-                nbCycles = nbCyclesPicker.getValue();
-                getSupportFragmentManager().beginTransaction().addToBackStack("travailFrag").replace(R.id.fragment, new TmpsTravail(), "travailFrag").commit();
+                cycles = nbCyclesPicker.getValue();
+                getSupportFragmentManager().beginTransaction().addToBackStack("travailFrag").replace(R.id.fragment, new Travail(), "travailFrag").commit();
                 break;
             case "tmpsTravail":
-                NumberPicker tmpsMinTravailPicker = findViewById((R.id.minutesTmpsTravail));
-                NumberPicker tmpsSecTravailPicker = findViewById((R.id.secondesTmpsTravail));
+                NumberPicker tmpsMinTravailPicker = findViewById((R.id.MinTravail));
+                NumberPicker tmpsSecTravailPicker = findViewById((R.id.SecTravail));
                 if (tmpsMinTravailPicker.getValue() == 0 && tmpsSecTravailPicker.getValue() == 0){
                     Toast.makeText(getApplicationContext(),"Pas de Temps de travail dans votre séance ? vous êtes cons", Toast.LENGTH_SHORT);
                     etape--;
                     break;
                 }
-                tmpsTravail = tmpsMinTravailPicker.getValue()*60 + tmpsSecTravailPicker.getValue();
-                getSupportFragmentManager().beginTransaction().addToBackStack("reposFrag").replace(R.id.fragment, new TmpsRepos(), "reposFrag").commit();
+                travail = tmpsMinTravailPicker.getValue()*60 + tmpsSecTravailPicker.getValue();
+                getSupportFragmentManager().beginTransaction().addToBackStack("reposFrag").replace(R.id.fragment, new Repos(), "reposFrag").commit();
                 break;
             case "tmpsReposCycle":
-                NumberPicker tmpsMinReposPicker = findViewById((R.id.minutesTmpsRepos));
-                NumberPicker tmpsSecReposPicker = findViewById((R.id.secondesTmpsRepos));
+                NumberPicker tmpsMinReposPicker = findViewById((R.id.MinRepos));
+                NumberPicker tmpsSecReposPicker = findViewById((R.id.SecRepos));
                 if (tmpsMinReposPicker.getValue() == 0 && tmpsSecReposPicker.getValue() == 0){
                     Toast.makeText(getApplicationContext(),"Pas de Temps de travail dans votre séance ? vous êtes cons", Toast.LENGTH_SHORT);
                     etape--;
                     break;
                 }
-                tmpsTravail = tmpsMinReposPicker.getValue()*60 + tmpsSecReposPicker.getValue();
-                getSupportFragmentManager().beginTransaction().addToBackStack("reposLongFrag").replace(R.id.fragment, new TmpsReposSequence(), "reposLongFrag").commit();
+                travail = tmpsMinReposPicker.getValue()*60 + tmpsSecReposPicker.getValue();
+                getSupportFragmentManager().beginTransaction().addToBackStack("reposLongFrag").replace(R.id.fragment, new ReposLong(), "reposLongFrag").commit();
                 break;
             case "tmpsReposSequence":
-                NumberPicker tmpsMinReposSequencePicker = findViewById((R.id.secondesTmpsReposSequence));
-                NumberPicker tmpsSecReposSequencePicker = findViewById((R.id.secondesTmpsReposSequence));
+                NumberPicker tmpsMinReposSequencePicker = findViewById((R.id.SecReposLong));
+                NumberPicker tmpsSecReposSequencePicker = findViewById((R.id.SecReposLong));
                 if (tmpsMinReposSequencePicker.getValue() == 0 && tmpsSecReposSequencePicker.getValue() == 0){
                     Toast.makeText(getApplicationContext(),"Pas de Temps de travail dans votre séance ? vous êtes cons", Toast.LENGTH_SHORT);
                     etape--;
                     break;
                 }
-                tmpsReposSequences = tmpsMinReposSequencePicker.getValue()*60 + tmpsSecReposSequencePicker.getValue();
+                reposLong = tmpsMinReposSequencePicker.getValue()*60 + tmpsSecReposSequencePicker.getValue();
                 next.setText("Commencer la séance");
-                newSeance = new Seance("", nbSequences, nbCycles, tmpsTravail, tmpsReposCycle, tmpsReposSequences, tmpsPreparation);
+                newSeance = new Seance("", sequences, cycles, travail, repos, reposLong, preparation);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Seance", newSeance);
                 Fragment commencer = new Commencer();
@@ -185,7 +182,7 @@ public class FragmentSeanceCreation extends AppCompatActivity {
                 break;
             case "commencer":
                 if (newSeance == null) {
-                    newSeance = new Seance("", nbSequences, nbCycles, tmpsTravail, tmpsReposCycle, tmpsReposSequences, tmpsPreparation);
+                    newSeance = new Seance("", sequences, cycles, travail, repos, reposLong, preparation);
                 }
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 Intent intent = new Intent(this, Seances.class);
@@ -200,18 +197,18 @@ public class FragmentSeanceCreation extends AppCompatActivity {
 
     public void recapitulatif(){
         TextView editPrep =  findViewById(R.id.EditPrep);
-        Log.i("tmpsPreparation", String.valueOf(tmpsPreparation));
-        editPrep.setText(String.valueOf(tmpsPreparation));
+        Log.i("tmpsPreparation", String.valueOf(preparation));
+        editPrep.setText(String.valueOf(preparation));
         TextView editSeq =  findViewById(R.id.EditSeq);
-        editSeq.setText(nbSequences);
+        editSeq.setText(sequences);
         TextView editCycles =  findViewById(R.id.EditCycles);
-        editCycles.setText(nbCycles);
+        editCycles.setText(cycles);
         TextView editRepos =  findViewById(R.id.EditRepos);
-        editRepos.setText(tmpsReposCycle);
+        editRepos.setText(repos);
         TextView editReposSeq =  findViewById(R.id.EditReposLong);
-        editReposSeq.setText(tmpsReposSequences);
+        editReposSeq.setText(reposLong);
         TextView editTravail =  findViewById(R.id.EditTravail);
-        editTravail.setText(nbSequences);
+        editTravail.setText(sequences);
         TextView tempsTotal =  findViewById(R.id.TempsTotal);
         tempsTotal.setText("oui");
 
@@ -221,13 +218,11 @@ public class FragmentSeanceCreation extends AppCompatActivity {
     public void onBackPressed(){
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0){
-            etape--;
             fm.popBackStack();
+            etape--;
         } else {
             super.onBackPressed();
         }
     }
-
-    public void passDataIn(){}
 
 }

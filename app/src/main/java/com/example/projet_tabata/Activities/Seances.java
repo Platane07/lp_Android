@@ -3,7 +3,6 @@ package com.example.projet_tabata.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.projet_tabata.Database.DatabaseClient;
 import com.example.projet_tabata.Entities.Seance;
@@ -20,9 +18,6 @@ import com.example.projet_tabata.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class Seances extends AppCompatActivity implements Serializable {
     private DatabaseClient mDb;
@@ -69,11 +64,11 @@ public class Seances extends AppCompatActivity implements Serializable {
             next();
         }
 
-        miseAJour();
+        updateTime();
     }
 
     // Mise à jour graphique
-    private void miseAJour() {
+    private void updateTime() {
 
         // Décompositions en secondes et minutes
         int secs = (int) (updatedTime / 1000);
@@ -116,12 +111,12 @@ public class Seances extends AppCompatActivity implements Serializable {
 
             public void onTick(long millisUntilFinished) {
                 updatedTime = millisUntilFinished;
-                miseAJour();
+                updateTime();
             }
 
             public void onFinish() {
                 updatedTime = 0;
-                miseAJour();
+                updateTime();
                 next();
             }
         }.start();
@@ -158,7 +153,7 @@ public class Seances extends AppCompatActivity implements Serializable {
                 descriptif.setText("Repos Sequence");
                 play();
                 getWindow().getDecorView().setBackgroundColor(Color.RED);
-                startTimer(seance.reposSeq * 1000);
+                startTimer(seance.reposLong * 1000);
             }
             etape++;
         } else {
@@ -175,31 +170,16 @@ public class Seances extends AppCompatActivity implements Serializable {
 
             public void onTick(long millisUntilFinished) {
                 updatedTime = millisUntilFinished;
-                miseAJour();
+                updateTime();
             }
 
             public void onFinish() {
                 updatedTime = 0;
-                miseAJour();
+                updateTime();
                 next();
 
             }
         }.start();
-    }
-
-    // Remettre à le compteur à la valeur initiale
-    public void onReset(View view) {
-
-        // Mettre en pause
-        if (timer != null) {
-            timer.cancel();
-        }
-
-        // Réinitialiser
-        updatedTime = INITIAL_TIME;
-
-        // Mise à jour graphique
-        miseAJour();
     }
 
 
@@ -215,40 +195,5 @@ public class Seances extends AppCompatActivity implements Serializable {
         cycle.putLong("updatedTime", updatedTime);
         cycle.putInt("etape", etape);
     }
-/*
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            onSaveInstanceState(cycle);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            onSaveInstanceState(cycle);
-        }
-    }
-
-
-
-*/
-
-
-
-
-
-/*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seances);
-    }
-
-        mDb = DatabaseClient.getInstance(getApplicationContext());
-
-        Seance seance = (Seance) getIntent().getSerializableExtra("Seance");
-        Log.i("TAG", seance.name);
-
-        Toast.makeText(getApplicationContext() ,seance.name, Toast.LENGTH_SHORT).show();
-
-
-*/
 }

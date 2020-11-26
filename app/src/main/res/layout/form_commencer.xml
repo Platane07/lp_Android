@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Temps de repos par cycles :" />
+                    android:text="Temps de repos :" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Temps de repos par séquences :" />
+                    android:text="Temps de repos Long :" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -111,39 +111,45 @@
 
                 <TextView
                     android:id="@+id/EditPrep"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1"
-                    android:text="oui"/>
+                    android:text="oui" />
 
                 <TextView
                     android:id="@+id/EditSeq"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/EditCycles"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/EditRepos"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/EditReposLong"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/EditTravail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1" />
 
                 <TextView
@@ -151,8 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    />
+                    android:gravity="center" />
 
 
             </LinearLayout>

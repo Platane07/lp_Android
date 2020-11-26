@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projet_tabata.R;
 
-public class NbSequences extends Fragment {
+public class Sequences extends Fragment {
 
-    NumberPicker nbSequences;
+    NumberPicker sequences;
 
-    public NbSequences() {
+    public Sequences() {
         // Required empty public constructor
     }
 
@@ -30,21 +30,21 @@ public class NbSequences extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        nbSequences = getView().findViewById(R.id.nbSequences);
+        sequences = getView().findViewById(R.id.Sequences);
 
 
         if (savedInstanceState != null){
-            nbSequences.setValue(savedInstanceState.getInt("nbSequences"));
+            sequences.setValue(savedInstanceState.getInt("sequences"));
         }
-        nbSequences.setMaxValue(100);
-        nbSequences.setMinValue(0);
+        sequences.setMaxValue(1000);
+        sequences.setMinValue(0);
     }
 
     @Override
     public void onSaveInstanceState(Bundle Save) {
         super.onSaveInstanceState(Save);
 
-        Save.putInt("nbSequences", nbSequences.getValue());
+        Save.putInt("sequences", sequences.getValue());
 
 
     }

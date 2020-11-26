@@ -69,7 +69,7 @@
                 android:text="Nb Séquences :" />
 
             <EditText
-                android:id="@+id/nbSequences"
+                android:id="@+id/Sequences"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -91,7 +91,7 @@
                 android:text="Nb cycles :" />
 
             <EditText
-                android:id="@+id/nbCycles"
+                android:id="@+id/Cycles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -24,7 +24,7 @@
             android:textSize="36sp" />
 
         <NumberPicker
-            android:id="@+id/nbSequences"
+            android:id="@+id/Sequences"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

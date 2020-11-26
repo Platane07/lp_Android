@@ -33,25 +33,25 @@ public class Commencer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.form_commencer, container, false);
 
-
         Seance seance = (Seance) getArguments().getSerializable("Seance");
-        //TextView editPrep = getView().findViewById(R.id.EditPrep);
-        //Log.i("tmpsPreparation", String.valueOf(seance.preparation));
-        //editPrep.setText(String.valueOf(seance.preparation));
-        TextView editSeq = getView().findViewById(R.id.EditSeq);
-        editSeq.setText(seance.sequence);
-        TextView editCycles = getView().findViewById(R.id.EditCycles);
-        editCycles.setText(seance.cycle);
-        TextView editRepos = getView().findViewById(R.id.EditRepos);
-        editRepos.setText(seance.repos);
-        TextView editReposSeq = getView().findViewById(R.id.EditReposLong);
-        editReposSeq.setText(seance.reposSeq);
-        TextView editTravail = getView().findViewById(R.id.EditTravail);
-        editTravail.setText(seance.travail);
-        TextView tempsTotal = getView().findViewById(R.id.TempsTotal);
-        tempsTotal.setText(seance.getTempsTotal());
+        TextView editPrep = view.findViewById(R.id.EditPrep);
+        Log.i("tmpsPreparation", String.valueOf(seance.preparation));
+        editPrep.setText(convertMinutes(seance.preparation));
+        TextView editSeq = view.findViewById(R.id.EditSeq);
+        editSeq.setText(convertMinutes(seance.sequence));
+        TextView editCycles = view.findViewById(R.id.EditCycles);
+        editCycles.setText(convertMinutes((seance.cycle)));
+        TextView editRepos = view.findViewById(R.id.EditRepos);
+        editRepos.setText(convertMinutes(seance.repos));
+        TextView editReposSeq = view.findViewById(R.id.EditReposLong);
+        editReposSeq.setText(convertMinutes(seance.reposLong));
+        TextView editTravail = view.findViewById(R.id.EditTravail);
+        editTravail.setText(convertMinutes(seance.travail));
+        TextView tempsTotal = view.findViewById(R.id.TempsTotal);
+        tempsTotal.setText(convertMinutes(seance.getTempsTotal()));
 
         return view;
     }
@@ -59,9 +59,16 @@ public class Commencer extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
 
-
-
+    public String convertMinutes(int value){
+        String temps;
+        if (value > 60) {
+        temps = (value/60)+"'"+(value%60)+"''";
+        } else {
+            temps = value+"'";
+        }
+        return temps;
     }
 
 }

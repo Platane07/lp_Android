@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 import com.example.projet_tabata.Dao.SeanceDAO;
 import com.example.projet_tabata.Entities.Seance;
 
-@Database(entities = {Seance.class}, version = 1)
+@Database(entities = {Seance.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract SeanceDAO seanceDao();
 }

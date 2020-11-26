@@ -11,16 +11,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projet_tabata.R;
 
-public class TmpsPreparation extends Fragment {
+public class Preparation extends Fragment {
 
-    NumberPicker minPrep;
-    NumberPicker secPrep;
+    NumberPicker minPreparation;
+    NumberPicker secPreparation;
 
 
 
-    public TmpsPreparation() {
-        /*TmpsPreparation tmpsPreparation = new TmpsPreparation();
-        return tmpsPreparation;*/
+    public Preparation() {
+
     }
 
 
@@ -29,14 +28,13 @@ public class TmpsPreparation extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.form_tmps_preparation, container, false);
         // Inflate the layout for this fragment
-        minPrep = view.findViewById(R.id.minutesTmpsPreparation);
-        secPrep = view.findViewById(R.id.secondesTmpsPreparation);
+        minPreparation = view.findViewById(R.id.MinPreparation);
+        secPreparation = view.findViewById(R.id.SecPreparation);
 
         if (savedInstanceState != null){
-            minPrep.setValue(savedInstanceState.getInt("minPrep"));
-            secPrep.setValue(savedInstanceState.getInt("secPrep"));
+            minPreparation.setValue(savedInstanceState.getInt("minPreparation"));
+            secPreparation.setValue(savedInstanceState.getInt("secPreparation"));
         }
-
 
         return view;
     }
@@ -48,10 +46,10 @@ public class TmpsPreparation extends Fragment {
 
         // Inflate the layout for this fragment
 
-        minPrep.setMaxValue(30);
-        minPrep.setMinValue(0);
-        secPrep.setMaxValue(60);
-        secPrep.setMinValue(0);
+        minPreparation.setMaxValue(30);
+        minPreparation.setMinValue(0);
+        secPreparation.setMaxValue(60);
+        secPreparation.setMinValue(0);
     }
 
 
@@ -59,8 +57,8 @@ public class TmpsPreparation extends Fragment {
     public void onSaveInstanceState(Bundle Save) {
         super.onSaveInstanceState(Save);
 
-        Save.putInt("minPrep", minPrep.getValue());
-        Save.putInt("secPrep", secPrep.getValue());
+        Save.putInt("minPreparation", minPreparation.getValue());
+        Save.putInt("secPreparation", secPreparation.getValue());
 
 
     }

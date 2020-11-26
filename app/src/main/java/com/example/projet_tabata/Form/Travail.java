@@ -11,44 +11,47 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projet_tabata.R;
 
-public class NbCycles extends Fragment {
+public class Travail extends Fragment {
+;
+    NumberPicker minTravail;
+    NumberPicker secTravail;
 
-    NumberPicker nbCycles;
-
-
-    public NbCycles() {
+    public Travail() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.form_nb_cycles, container, false);
-
-
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.form_tmps_travail, container, false);
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        nbCycles = getView().findViewById(R.id.nbCycles);
+         minTravail = getView().findViewById(R.id.MinTravail);
+         secTravail = getView().findViewById(R.id.SecTravail);
 
         if (savedInstanceState != null){
-            nbCycles.setValue(savedInstanceState.getInt("nbCycles"));
+            minTravail.setValue(savedInstanceState.getInt("minTravail"));
+            secTravail.setValue(savedInstanceState.getInt("secTravai"));
         }
-        nbCycles.setMaxValue(100);
-        nbCycles.setMinValue(0);
+
+        minTravail.setMaxValue(30);
+        minTravail.setMinValue(0);
+        secTravail.setMaxValue(60);
+        secTravail.setMinValue(0);
     }
 
     @Override
     public void onSaveInstanceState(Bundle Save) {
         super.onSaveInstanceState(Save);
 
-        Save.putInt("nbCycles", nbCycles.getValue());
+        Save.putInt("minTravail", minTravail.getValue());
+        Save.putInt("secTravail", secTravail.getValue());
 
 
     }
-
-
 }

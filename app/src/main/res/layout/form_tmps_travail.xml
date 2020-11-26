@@ -33,14 +33,14 @@
             android:weightSum="2">
 
             <NumberPicker
-                android:id="@+id/minutesTmpsTravail"
+                android:id="@+id/MinTravail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1" />
 
             <NumberPicker
-                android:id="@+id/secondesTmpsTravail"
+                android:id="@+id/SecTravail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
