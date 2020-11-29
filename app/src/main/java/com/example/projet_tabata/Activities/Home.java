@@ -39,8 +39,13 @@ public class Home extends AppCompatActivity {
 
 
     public void creer (View v){
-        Intent intent = new Intent(this, CreateSeance.class);
-        startActivity(intent);
+        if (seances.size() > 0 ) {
+            Intent intent = new Intent(this, SeanceCreation.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, CreateSeanceDebutant.class);
+            startActivity(intent);
+        }
     }
     public void AfficheSeances() {
 

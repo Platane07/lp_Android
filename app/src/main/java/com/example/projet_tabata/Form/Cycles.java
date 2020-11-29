@@ -17,7 +17,6 @@ public class Cycles extends Fragment {
 
 
     public Cycles() {
-        // Required empty public constructor
     }
 
     @Override

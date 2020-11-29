@@ -30,6 +30,7 @@ public class SplashScreen extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
+                finish();
                 // HomeActivity.class is the activity to go after showing the splash screen.
             }
 

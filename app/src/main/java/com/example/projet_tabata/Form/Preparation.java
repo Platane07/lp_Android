@@ -1,6 +1,8 @@
 package com.example.projet_tabata.Form;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ public class Preparation extends Fragment {
     NumberPicker minPreparation;
     NumberPicker secPreparation;
 
+    View view;
 
 
     public Preparation() {
@@ -24,27 +27,52 @@ public class Preparation extends Fragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        // keep the fragment and all its data across screen rotation
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.form_tmps_preparation, container, false);
-        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.form_tmps_preparation, container, false);
+
+
         minPreparation = view.findViewById(R.id.MinPreparation);
         secPreparation = view.findViewById(R.id.SecPreparation);
+
+
 
         if (savedInstanceState != null){
             minPreparation.setValue(savedInstanceState.getInt("minPreparation"));
             secPreparation.setValue(savedInstanceState.getInt("secPreparation"));
         }
+        minPreparation.setValue(15);
+        Log.i("TAG" , String.valueOf(minPreparation.getValue()));
+
+      /*  if (view != null) {
+            if ((ViewGroup)view.getParent() != null)
+                ((ViewGroup)view.getParent()).removeView(view);
+            return view;
+        }*/
 
         return view;
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
+        if (savedInstanceState != null){
+            minPreparation.setValue(savedInstanceState.getInt("minPreparation"));
+            secPreparation.setValue(savedInstanceState.getInt("secPreparation"));
+        }
+
+        minPreparation.setValue(30);
 
         minPreparation.setMaxValue(30);
         minPreparation.setMinValue(0);

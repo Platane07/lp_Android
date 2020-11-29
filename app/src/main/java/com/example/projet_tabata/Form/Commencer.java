@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.projet_tabata.Entities.Seance;
@@ -34,16 +35,16 @@ public class Commencer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.form_commencer, container, false);
-
+        View view = inflater.inflate(R.layout.from_commencer, container, false);
+/*
         Seance seance = (Seance) getArguments().getSerializable("Seance");
-        TextView editPrep = view.findViewById(R.id.EditPrep);
+        NumberPicker editPrep = view.findViewById(R.id.EditPrep);
         Log.i("tmpsPreparation", String.valueOf(seance.preparation));
-        editPrep.setText(convertMinutes(seance.preparation));
-        TextView editSeq = view.findViewById(R.id.EditSeq);
-        editSeq.setText(convertMinutes(seance.sequence));
+        editPrep.setValue(seance.preparation);
+        NumberPicker editSeq = view.findViewById(R.id.EditSeq);
+        editSeq.setValue(String.valueOf(seance.sequence));
         TextView editCycles = view.findViewById(R.id.EditCycles);
-        editCycles.setText(convertMinutes((seance.cycle)));
+        editCycles.setText(String.valueOf(seance.cycle));
         TextView editRepos = view.findViewById(R.id.EditRepos);
         editRepos.setText(convertMinutes(seance.repos));
         TextView editReposSeq = view.findViewById(R.id.EditReposLong);
@@ -51,7 +52,7 @@ public class Commencer extends Fragment {
         TextView editTravail = view.findViewById(R.id.EditTravail);
         editTravail.setText(convertMinutes(seance.travail));
         TextView tempsTotal = view.findViewById(R.id.TempsTotal);
-        tempsTotal.setText(convertMinutes(seance.getTempsTotal()));
+        tempsTotal.setText(convertMinutes(seance.getTempsTotal()));*/
 
         return view;
     }

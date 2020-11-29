@@ -109,7 +109,7 @@
                 android:weightSum="7">
 
 
-                <TextView
+                <NumberPicker
                     android:id="@+id/EditPrep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,49 +117,47 @@
                     android:layout_weight="1"
                     android:text="oui" />
 
-                <TextView
+                <NumberPicker
                     android:id="@+id/EditSeq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1" />
 
-                <TextView
+                <NumberPicker
                     android:id="@+id/EditCycles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1" />
 
-                <TextView
+                <NumberPicker
                     android:id="@+id/EditRepos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1" />
 
-                <TextView
+                <NumberPicker
                     android:id="@+id/EditReposLong"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1" />
 
-                <TextView
+                <NumberPicker
                     android:id="@+id/EditTravail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight="1" />
 
-                <TextView
+                <NumberPicker
                     android:id="@+id/TempsTotal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center" />
-
-
             </LinearLayout>
 
         </LinearLayout>

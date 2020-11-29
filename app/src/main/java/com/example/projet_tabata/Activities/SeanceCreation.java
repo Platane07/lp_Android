@@ -1,13 +1,18 @@
 package com.example.projet_tabata.Activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projet_tabata.Database.DatabaseClient;
@@ -18,6 +23,21 @@ public class SeanceCreation extends AppCompatActivity {
     private DatabaseClient mDb;
 
     public Seance newSeance;
+    public String nom;
+    public int preparation;
+    public int sequences;
+    public int cycles;
+    public int travail;
+    public int repos;
+    public int reposLong;
+
+    NumberPicker cyclesPicker;
+    NumberPicker sequencesPicker;
+    NumberPicker preparationPicker;
+    NumberPicker travailPicker;
+    NumberPicker reposPicker;
+    NumberPicker reposLongPicker;
+    TextView tempsTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,55 +47,163 @@ public class SeanceCreation extends AppCompatActivity {
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
         Intent intent = getIntent();
+
+        if (intent.getSerializableExtra("Seance") != null){
+            newSeance = (Seance) intent.getSerializableExtra("Seance");
+        } else {
+            newSeance = new Seance("", 0,0,0,0,0,0);
+        }
+
+
+        tempsTotal = findViewById(R.id.tempsTotal);
+        setTempsTotal();
+
+        setUpPicker();
+
+
+
+
+
     }
 
-    public void commencer(View v){
+    public void setUpPicker(){
+        preparationPicker = findViewById(R.id.EditPrep);
+        sequencesPicker = findViewById(R.id.EditSeq);
+        cyclesPicker = findViewById(R.id.EditCycles);
+        travailPicker = findViewById(R.id.EditTravail);
+        reposPicker = findViewById(R.id.EditRepos);
+        reposLongPicker = findViewById(R.id.EditReposLong);
 
-        EditText Nom = findViewById(R.id.nom);
-        String nom = Nom.getText().toString();
-        EditText TmpsPreparation = findViewById(R.id.tmpsPreparation);
-        int tmpsPreparation = Integer.parseInt(String.valueOf(TmpsPreparation.getText()));
-        EditText NbSequences = findViewById(R.id.Sequences);
-        int nbSequences = Integer.parseInt(String.valueOf(NbSequences.getText()));
-        EditText NbCycles = findViewById(R.id.Cycles);
-        int nbCycles = Integer.parseInt(String.valueOf(NbCycles.getText()));
-        EditText TmpsTravail = findViewById(R.id.tmpsTravail);
-        int tmpsTravail =Integer.parseInt(String.valueOf(TmpsTravail.getText()));
-        EditText TmpsReposCycle = findViewById(R.id.tmpsReposCycle);
-        int tmpsReposCycle = Integer.parseInt(String.valueOf(TmpsReposCycle.getText()));
-        EditText TmpsReposSequence = findViewById(R.id.tmpsReposSequence);
-        int tmpsReposSequence = Integer.parseInt(String.valueOf(TmpsReposSequence.getText()));
+        preparationPicker.setMinValue(0);
+        preparationPicker.setMaxValue(900);
+        preparationPicker.setValue(newSeance.preparation);
 
-        newSeance = new Seance(nom, nbSequences, nbCycles, tmpsTravail, tmpsReposCycle, tmpsReposSequence, tmpsPreparation);
-        //Inserer dans database
-        class InsertSeanceInDB extends AsyncTask<Void, Void, Void> {
-
+        preparationPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            protected Void doInBackground(Void... voids){
-
-                mDb.getAppDatabase().seanceDao().insert(newSeance);
-                Log.i("WOULARDINEMOUK", newSeance.name);
-                //Toast.makeText(getApplicationContext() ,"INSERTION ANALE", Toast.LENGTH_SHORT).show();
-                return null;
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                newSeance.preparation = preparationPicker.getValue();
+                setTempsTotal();
             }
+        });
 
+        sequencesPicker.setMinValue(0);
+        sequencesPicker.setMaxValue(20);
+        sequencesPicker.setValue(newSeance.sequence);
+
+        sequencesPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            protected void onPostExecute(Void avoid){
-                super.onPostExecute(avoid);
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                newSeance.sequence = sequencesPicker.getValue();
+                setTempsTotal();
             }
+        });
+
+        cyclesPicker.setMinValue(0);
+        cyclesPicker.setMaxValue(20);
+        cyclesPicker.setValue(newSeance.cycle);
+
+        cyclesPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                newSeance.cycle = cyclesPicker.getValue();
+                setTempsTotal();
+            }
+        });
+
+        travailPicker.setMinValue(0);
+        travailPicker.setMaxValue(900);
+        travailPicker.setValue(newSeance.travail);
+
+        travailPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                newSeance.travail = travailPicker.getValue();
+                setTempsTotal();
+            }
+        });
+
+        reposPicker.setMinValue(0);
+        reposPicker.setMaxValue(900);
+        reposPicker.setValue(newSeance.repos);
+
+        reposPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                newSeance.repos = reposPicker.getValue();
+                setTempsTotal();
+            }
+        });
+
+        reposLongPicker.setMinValue(0);
+        reposLongPicker.setMaxValue(900);
+        reposLongPicker.setValue(newSeance.reposLong);
+
+        reposLongPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                newSeance.reposLong = reposLongPicker.getValue();
+                setTempsTotal();
+
+            }
+        });
+
+
+
+    }
+
+    public void setTempsTotal(){
+        if (newSeance.getTempsTotal() > 60) {
+            tempsTotal.setText(Integer.toString(newSeance.getTempsTotal() / 60) + ":" + Integer.toString(newSeance.getTempsTotal() % 60));
+        } else {
+            tempsTotal.setText(Integer.toString(newSeance.getTempsTotal()) + "s");
+
         }
-        InsertSeanceInDB iDB = new InsertSeanceInDB();
-        iDB.execute();
+    }
+
+    public void Sauvegarder(View v){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Entrez un nom pour votre séance");
+
+            EditText input = new EditText(this);
+
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    nom = input.getText().toString();
+                    newSeance.name = nom;
+                    class InsertSeanceInDB extends AsyncTask<Void, Void, Void> {
+
+                        @Override
+                        protected Void doInBackground(Void... voids){
+
+                            mDb.getAppDatabase().seanceDao().insert(newSeance);
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void avoid){
+                            super.onPostExecute(avoid);
+                        }
+                    }
+                    InsertSeanceInDB iDB = new InsertSeanceInDB();
+                    iDB.execute();
+                    Toast.makeText(getApplicationContext() ,"Séance sauvegardée", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            builder.show();
+
+
+        }
+    public void Commencer(View v) {
+
         Intent intent = new Intent(this, Seances.class);
-        Log.i("WOULARDINEMOUKBEBEKTARTINEAUFOUTRE", newSeance.name);
         intent.putExtra("Seance", newSeance);
         startActivity(intent);
-        Toast.makeText(getApplicationContext() ,"INSERTION ANALE", Toast.LENGTH_SHORT).show();
-
-        //addForm.replace(R.id.bottom_fragment, new Seance());
-
-
-
+        finish();
 
     }
 }
