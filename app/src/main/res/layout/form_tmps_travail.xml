@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:weightSum="2">
+        android:weightSum="3">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,27 +24,46 @@
             android:text="Temps de travail : "
             android:textSize="36sp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="c'est le temps que vous consacrez à votre effort !"
+            android:textSize="22sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="horizontal">
 
             <NumberPicker
                 android:id="@+id/MinTravail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:layout_weight="4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=":"
+                android:textSize="22sp" />
 
             <NumberPicker
                 android:id="@+id/SecTravail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:layout_weight="4" />
         </LinearLayout>
 
     </LinearLayout>

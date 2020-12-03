@@ -1,28 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:layout_margin="2sp"
+    android:layout_marginHorizontal="2sp"
+    android:layout_marginVertical="2sp"
+    android:layout_marginStart="2sp"
+    android:background="#897676"
     android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:descendantFocusability = "blocksDescendants">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/seanceName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
+        android:gravity="center"
         android:text="ALLO LES PTITS LOUPS"
-        android:textSize="18sp" />
+        android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/supprimer"
-        android:layout_width="wrap_content"
+        android:id="@+id/tempsTotal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="99dp"
-        android:layout_marginEnd="3dp"
-        android:layout_toEndOf="@+id/seanceName"
-        android:gravity="right"
+        android:gravity="center"
         android:text="Supprimer" />
-</RelativeLayout>
+</LinearLayout>

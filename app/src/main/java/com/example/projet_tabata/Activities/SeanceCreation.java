@@ -19,6 +19,9 @@ import com.example.projet_tabata.Database.DatabaseClient;
 import com.example.projet_tabata.Entities.Seance;
 import com.example.projet_tabata.R;
 
+import java.util.List;
+import java.util.Locale;
+
 public class SeanceCreation extends AppCompatActivity {
     private DatabaseClient mDb;
 
@@ -30,6 +33,7 @@ public class SeanceCreation extends AppCompatActivity {
     public int travail;
     public int repos;
     public int reposLong;
+    boolean modif = false;
 
     NumberPicker cyclesPicker;
     NumberPicker sequencesPicker;
@@ -50,6 +54,7 @@ public class SeanceCreation extends AppCompatActivity {
 
         if (intent.getSerializableExtra("Seance") != null){
             newSeance = (Seance) intent.getSerializableExtra("Seance");
+            modif = true;
         } else {
             newSeance = new Seance("", 0,0,0,0,0,0);
         }
@@ -86,7 +91,7 @@ public class SeanceCreation extends AppCompatActivity {
             }
         });
 
-        sequencesPicker.setMinValue(0);
+        sequencesPicker.setMinValue(1);
         sequencesPicker.setMaxValue(20);
         sequencesPicker.setValue(newSeance.sequence);
 
@@ -98,7 +103,7 @@ public class SeanceCreation extends AppCompatActivity {
             }
         });
 
-        cyclesPicker.setMinValue(0);
+        cyclesPicker.setMinValue(1);
         cyclesPicker.setMaxValue(20);
         cyclesPicker.setValue(newSeance.cycle);
 
@@ -110,7 +115,7 @@ public class SeanceCreation extends AppCompatActivity {
             }
         });
 
-        travailPicker.setMinValue(0);
+        travailPicker.setMinValue(1);
         travailPicker.setMaxValue(900);
         travailPicker.setValue(newSeance.travail);
 
@@ -122,7 +127,7 @@ public class SeanceCreation extends AppCompatActivity {
             }
         });
 
-        reposPicker.setMinValue(0);
+        reposPicker.setMinValue(1);
         reposPicker.setMaxValue(900);
         reposPicker.setValue(newSeance.repos);
 
@@ -134,7 +139,7 @@ public class SeanceCreation extends AppCompatActivity {
             }
         });
 
-        reposLongPicker.setMinValue(0);
+        reposLongPicker.setMinValue(1);
         reposLongPicker.setMaxValue(900);
         reposLongPicker.setValue(newSeance.reposLong);
 
@@ -174,23 +179,28 @@ public class SeanceCreation extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     nom = input.getText().toString();
                     newSeance.name = nom;
+
                     class InsertSeanceInDB extends AsyncTask<Void, Void, Void> {
 
                         @Override
-                        protected Void doInBackground(Void... voids){
+                        protected Void doInBackground(Void... voids) {
 
-                            mDb.getAppDatabase().seanceDao().insert(newSeance);
+                            if (modif == true ) {
+                                mDb.getAppDatabase().seanceDao().update(newSeance);
+                            } else {
+                                mDb.getAppDatabase().seanceDao().insert(newSeance);
+                            }
                             return null;
                         }
 
                         @Override
-                        protected void onPostExecute(Void avoid){
+                        protected void onPostExecute(Void avoid) {
                             super.onPostExecute(avoid);
                         }
                     }
                     InsertSeanceInDB iDB = new InsertSeanceInDB();
                     iDB.execute();
-                    Toast.makeText(getApplicationContext() ,"Séance sauvegardée", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Séance sauvegardée", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -206,4 +216,6 @@ public class SeanceCreation extends AppCompatActivity {
         finish();
 
     }
+
+
 }

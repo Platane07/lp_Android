@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:weightSum="2">
+        android:weightSum="3">
 
         <TextView
             android:layout_width="match_parent"
@@ -22,6 +22,18 @@
             android:padding="5dp"
             android:text="Nombre de cycles : "
             android:textSize="36sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="un cycle est une constitué d'un temps de repos et d'un temps de travail"
+            android:textSize="22sp" />
+
+
 
         <NumberPicker
             android:id="@+id/Cycles"

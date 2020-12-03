@@ -1,7 +1,9 @@
 package com.example.projet_tabata.Activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,6 +37,12 @@ public class Home extends AppCompatActivity {
         AfficheSeances();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        AfficheSeances();
+    }
+
 
 
 
@@ -56,13 +64,11 @@ public class Home extends AppCompatActivity {
             @Override
             protected List<Seance> doInBackground(Void... voids) {
 
-                // Liste des users
+                // Récupération des séances dans la base de données
                 seances = mDb
                         .getAppDatabase()
                         .seanceDao()
                         .loadAllSeance();
-
-                // Rechercher les books à partir des users
 
 
                 return seances;
@@ -75,24 +81,23 @@ public class Home extends AppCompatActivity {
 
                 ArrayList<HashMap<String, String>> mapSeances = new ArrayList<>();
 
-                // Affichage des utilisateurs;
+                // Affichage des séances sous forme de liste;
                 for (Seance seance : seances) {
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("name", seance.name);
-                    hashMap.put("id", String.valueOf(seance.userCreatorId));
+                    hashMap.put("tempsTotal", seance.getTempsTotal()/60 + ":" + seance.getTempsTotal()%60);
                     mapSeances.add(hashMap);
                 }
-                String[] from = {"name", "id"};
-                int[] to = {R.id.seanceName, R.id.supprimer};
+                String[] from = {"name", "tempsTotal"};
+                int[] to = {R.id.seanceName, R.id.tempsTotal};
                 SimpleAdapter simpleAdapter = new SimpleAdapter(getApplicationContext(), mapSeances, R.layout.affichage_seance,from, to);
                 listView.setAdapter(simpleAdapter);
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent intent = new Intent(getApplicationContext(), Seances.class);
-                        intent.putExtra("Seance",seances.get(i));
-                        startActivity(intent);
+                            afficherAlertDialog(seances.get(i));
+
                     }
                 });
 
@@ -103,5 +108,69 @@ public class Home extends AppCompatActivity {
         GetSeances gs = new GetSeances();
         gs.execute();
 
+    }
+
+    public void supprimerSeance(Seance seance){
+
+        class DeleteDB extends AsyncTask<Void, Void, Void> {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                mDb.getAppDatabase().seanceDao().deleteSeance(seance);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                AfficheSeances();
+            }
+        }
+
+        // Création d'un objet de type GetTasks et execution de la demande asynchrone
+        DeleteDB dDB = new DeleteDB();
+        dDB.execute();
+    }
+
+    public void afficherAlertDialog(Seance seance){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                Home.this );
+
+        // set title
+        alertDialogBuilder.setTitle(seance.name);
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Que souhaitez-vous faire ?")
+                .setCancelable(true)
+                .setPositiveButton("Commencer",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Intent intent = new Intent(getApplicationContext(), Seances.class);
+                        intent.putExtra("Seance",seance);
+                        startActivity(intent);
+
+                    }
+                })
+                .setNeutralButton("Modifier",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Intent intent = new Intent(getApplicationContext(), SeanceCreation.class);
+                        intent.putExtra("Seance",seance);
+                        intent.putExtra("Etat", "modifier");
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Supprimer",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        supprimerSeance(seance);
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 }

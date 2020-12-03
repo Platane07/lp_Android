@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.projet_tabata.Entities.Seance;
 
@@ -25,6 +26,8 @@ public interface SeanceDAO {
     @Query("SELECT * FROM seance")
     public List<Seance> loadAllSeance();
 
+    @Update
+    void update(Seance seance);
 
 
 }
