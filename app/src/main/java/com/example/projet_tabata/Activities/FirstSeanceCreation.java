@@ -2,7 +2,6 @@ package com.example.projet_tabata.Activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.DialogInterface;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,16 +17,15 @@ import android.widget.Toast;
 
 import com.example.projet_tabata.Database.DatabaseClient;
 import com.example.projet_tabata.Entities.Seance;
-import com.example.projet_tabata.Form.Commencer;
-import com.example.projet_tabata.Form.Cycles;
-import com.example.projet_tabata.Form.Sequences;
-import com.example.projet_tabata.Form.Preparation;
-import com.example.projet_tabata.Form.Repos;
-import com.example.projet_tabata.Form.ReposLong;
-import com.example.projet_tabata.Form.Travail;
+import com.example.projet_tabata.Fragments.Cycles;
+import com.example.projet_tabata.Fragments.Sequences;
+import com.example.projet_tabata.Fragments.Preparation;
+import com.example.projet_tabata.Fragments.Repos;
+import com.example.projet_tabata.Fragments.ReposLong;
+import com.example.projet_tabata.Fragments.Travail;
 import com.example.projet_tabata.R;
 
-public class CreateSeanceDebutant extends AppCompatActivity {
+public class FirstSeanceCreation extends AppCompatActivity {
     private DatabaseClient mDb;
 
     String[] etapeFragments  = {"RIEN","tmpsPreparation","nbSequences", "nbCycles", "tmpsTravail", "tmpsReposCycle", "tmpsReposSequence","commencer"};
@@ -60,7 +57,7 @@ public class CreateSeanceDebutant extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment_seance_creation);
+        setContentView(R.layout.activity_first_seance_creation);
 
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
@@ -190,7 +187,7 @@ public class CreateSeanceDebutant extends AppCompatActivity {
                 next.setText("Commencer la séance");
                 newSeance = new Seance("", sequences, cycles, travail, repos, reposLong, preparation);
                 Intent intent = new Intent(this, SeanceCreation.class);
-                intent.putExtra("Seance", newSeance);
+                intent.putExtra("FirstSeance", newSeance);
                 startActivity(intent);
                 finish();
 

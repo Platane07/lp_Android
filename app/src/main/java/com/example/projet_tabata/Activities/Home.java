@@ -51,7 +51,7 @@ public class Home extends AppCompatActivity {
             Intent intent = new Intent(this, SeanceCreation.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(this, CreateSeanceDebutant.class);
+            Intent intent = new Intent(this, FirstSeanceCreation.class);
             startActivity(intent);
         }
     }
@@ -92,6 +92,17 @@ public class Home extends AppCompatActivity {
                 int[] to = {R.id.seanceName, R.id.tempsTotal};
                 SimpleAdapter simpleAdapter = new SimpleAdapter(getApplicationContext(), mapSeances, R.layout.affichage_seance,from, to);
                 listView.setAdapter(simpleAdapter);
+
+                listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -147,7 +158,7 @@ public class Home extends AppCompatActivity {
                 .setCancelable(true)
                 .setPositiveButton("Commencer",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
-                        Intent intent = new Intent(getApplicationContext(), Seances.class);
+                        Intent intent = new Intent(getApplicationContext(), Timer.class);
                         intent.putExtra("Seance",seance);
                         startActivity(intent);
 
@@ -156,8 +167,7 @@ public class Home extends AppCompatActivity {
                 .setNeutralButton("Modifier",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
                         Intent intent = new Intent(getApplicationContext(), SeanceCreation.class);
-                        intent.putExtra("Seance",seance);
-                        intent.putExtra("Etat", "modifier");
+                        intent.putExtra("SeanceUpdate",seance);
                         startActivity(intent);
                     }
                 })

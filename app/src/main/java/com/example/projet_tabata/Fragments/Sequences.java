@@ -1,4 +1,4 @@
-package com.example.projet_tabata.Form;
+package com.example.projet_tabata.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projet_tabata.R;
 
-public class ReposLong extends Fragment {
+public class Sequences extends Fragment {
 
-    NumberPicker minReposLong;
-    NumberPicker secReposLong;
+    NumberPicker sequences;
 
-    public ReposLong() {
+    public Sequences() {
         // Required empty public constructor
     }
 
@@ -24,35 +23,31 @@ public class ReposLong extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.form_tmps_repos_sequence, container, false);
+        return inflater.inflate(R.layout.form_nb_sequences, container, false);
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-         minReposLong = getView().findViewById(R.id.MinReposLong);
-         secReposLong = getView().findViewById(R.id.SecReposLong);
+        sequences = getView().findViewById(R.id.Sequences);
+
 
         if (savedInstanceState != null){
-            minReposLong.setValue(savedInstanceState.getInt("minReposSeq"));
-            secReposLong.setValue(savedInstanceState.getInt("secReposSeq"));
+            sequences.setValue(savedInstanceState.getInt("sequences"));
         }
-
-        minReposLong.setMaxValue(30);
-        minReposLong.setMinValue(0);
-        secReposLong.setMaxValue(60);
-        secReposLong.setMinValue(0);
+        sequences.setMaxValue(1000);
+        sequences.setMinValue(0);
     }
 
     @Override
     public void onSaveInstanceState(Bundle Save) {
         super.onSaveInstanceState(Save);
 
-        Save.putInt("minReposSeq", minReposLong.getValue());
-        Save.putInt("secReposSeq", secReposLong.getValue());
+        Save.putInt("sequences", sequences.getValue());
 
 
     }
+
+
 }

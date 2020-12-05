@@ -1,0 +1,3 @@
+<style name="MyAppTheme.NumberPicker" parent=" MyAppTheme">
+    <item name="android:colorControlNormal"> ?colorAccent </item>
+</style>

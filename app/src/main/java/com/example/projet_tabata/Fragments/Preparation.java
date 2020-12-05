@@ -1,6 +1,5 @@
-package com.example.projet_tabata.Form;
+package com.example.projet_tabata.Fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;

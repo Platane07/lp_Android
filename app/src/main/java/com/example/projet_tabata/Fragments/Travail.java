@@ -1,4 +1,4 @@
-package com.example.projet_tabata.Form;
+package com.example.projet_tabata.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,11 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projet_tabata.R;
 
-public class Sequences extends Fragment {
+public class Travail extends Fragment {
+;
+    NumberPicker minTravail;
+    NumberPicker secTravail;
 
-    NumberPicker sequences;
-
-    public Sequences() {
+    public Travail() {
         // Required empty public constructor
     }
 
@@ -23,31 +24,34 @@ public class Sequences extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.form_nb_sequences, container, false);
+        return inflater.inflate(R.layout.form_tmps_travail, container, false);
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-        sequences = getView().findViewById(R.id.Sequences);
-
+         minTravail = getView().findViewById(R.id.MinTravail);
+         secTravail = getView().findViewById(R.id.SecTravail);
 
         if (savedInstanceState != null){
-            sequences.setValue(savedInstanceState.getInt("sequences"));
+            minTravail.setValue(savedInstanceState.getInt("minTravail"));
+            secTravail.setValue(savedInstanceState.getInt("secTravai"));
         }
-        sequences.setMaxValue(1000);
-        sequences.setMinValue(0);
+
+        minTravail.setMaxValue(30);
+        minTravail.setMinValue(0);
+        secTravail.setMaxValue(60);
+        secTravail.setMinValue(0);
     }
 
     @Override
     public void onSaveInstanceState(Bundle Save) {
         super.onSaveInstanceState(Save);
 
-        Save.putInt("sequences", sequences.getValue());
+        Save.putInt("minTravail", minTravail.getValue());
+        Save.putInt("secTravail", secTravail.getValue());
 
 
     }
-
-
 }

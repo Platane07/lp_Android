@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -18,9 +17,6 @@ import android.widget.Toast;
 import com.example.projet_tabata.Database.DatabaseClient;
 import com.example.projet_tabata.Entities.Seance;
 import com.example.projet_tabata.R;
-
-import java.util.List;
-import java.util.Locale;
 
 public class SeanceCreation extends AppCompatActivity {
     private DatabaseClient mDb;
@@ -52,11 +48,13 @@ public class SeanceCreation extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (intent.getSerializableExtra("Seance") != null){
-            newSeance = (Seance) intent.getSerializableExtra("Seance");
+        if (intent.getSerializableExtra("SeanceUpdate") != null){
+            newSeance = (Seance) intent.getSerializableExtra("SeanceUpdate");
             modif = true;
+        } else if (intent.getSerializableExtra("FirstSeance") != null) {
+            newSeance = (Seance) intent.getSerializableExtra("FirstSeance");
         } else {
-            newSeance = new Seance("", 0,0,0,0,0,0);
+            newSeance = new Seance("", 1,1,1,1,1,1);
         }
 
 
@@ -210,7 +208,7 @@ public class SeanceCreation extends AppCompatActivity {
         }
     public void Commencer(View v) {
 
-        Intent intent = new Intent(this, Seances.class);
+        Intent intent = new Intent(this, Timer.class);
         intent.putExtra("Seance", newSeance);
         startActivity(intent);
         finish();

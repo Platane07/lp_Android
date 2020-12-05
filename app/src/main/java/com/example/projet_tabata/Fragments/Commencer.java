@@ -1,18 +1,14 @@
-package com.example.projet_tabata.Form;
+package com.example.projet_tabata.Fragments;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.NumberPicker;
-import android.widget.TextView;
 
-import com.example.projet_tabata.Entities.Seance;
 import com.example.projet_tabata.R;
 
 

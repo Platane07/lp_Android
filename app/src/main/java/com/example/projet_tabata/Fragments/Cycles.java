@@ -1,4 +1,4 @@
-package com.example.projet_tabata.Form;
+package com.example.projet_tabata.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

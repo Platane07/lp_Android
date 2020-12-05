@@ -1,4 +1,4 @@
-package com.example.projet_tabata.Form;
+package com.example.projet_tabata.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projet_tabata.R;
 
-public class Travail extends Fragment {
-;
-    NumberPicker minTravail;
-    NumberPicker secTravail;
+public class ReposLong extends Fragment {
 
-    public Travail() {
+    NumberPicker minReposLong;
+    NumberPicker secReposLong;
+
+    public ReposLong() {
         // Required empty public constructor
     }
 
@@ -24,33 +24,34 @@ public class Travail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.form_tmps_travail, container, false);
+        return inflater.inflate(R.layout.form_tmps_repos_sequence, container, false);
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         // Inflate the layout for this fragment
-         minTravail = getView().findViewById(R.id.MinTravail);
-         secTravail = getView().findViewById(R.id.SecTravail);
+         minReposLong = getView().findViewById(R.id.MinReposLong);
+         secReposLong = getView().findViewById(R.id.SecReposLong);
 
         if (savedInstanceState != null){
-            minTravail.setValue(savedInstanceState.getInt("minTravail"));
-            secTravail.setValue(savedInstanceState.getInt("secTravai"));
+            minReposLong.setValue(savedInstanceState.getInt("minReposSeq"));
+            secReposLong.setValue(savedInstanceState.getInt("secReposSeq"));
         }
 
-        minTravail.setMaxValue(30);
-        minTravail.setMinValue(0);
-        secTravail.setMaxValue(60);
-        secTravail.setMinValue(0);
+        minReposLong.setMaxValue(30);
+        minReposLong.setMinValue(0);
+        secReposLong.setMaxValue(60);
+        secReposLong.setMinValue(0);
     }
 
     @Override
     public void onSaveInstanceState(Bundle Save) {
         super.onSaveInstanceState(Save);
 
-        Save.putInt("minTravail", minTravail.getValue());
-        Save.putInt("secTravail", secTravail.getValue());
+        Save.putInt("minReposSeq", minReposLong.getValue());
+        Save.putInt("secReposSeq", secReposLong.getValue());
 
 
     }
