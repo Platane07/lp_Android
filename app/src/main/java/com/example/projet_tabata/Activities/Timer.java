@@ -18,23 +18,24 @@ import com.example.projet_tabata.R;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static java.lang.Long.valueOf;
+
 public class Timer extends AppCompatActivity implements Serializable {
 
-    Bundle cycle;
     Seance seance;
     // VIEW
-    private TextView etapeTimerView;
-    private TextView globalTimerView;
-    private TextView descriptif;
-    private TextView descriptif2;
-    private TextView onStart;
-    private int started = 2;
+     TextView etapeTimerView;
+     TextView globalTimerView;
+     TextView descriptif;
+     TextView descriptif2;
+     TextView onStart;
+     int started = 2;
 
     // DATA
-    private long etapeTime;
-    private CountDownTimer timer;
-    private long globalTime;
-    private CountDownTimer globalTimer;
+     long etapeTime;
+     CountDownTimer timer;
+     long globalTime;
+     CountDownTimer globalTimer;
     public int etape = 0;
     ArrayList<String> seanceCycle;
     MediaPlayer player;
@@ -58,20 +59,24 @@ public class Timer extends AppCompatActivity implements Serializable {
         etapeTime = seance.preparation * 1000;
         globalTime = seance.getTempsTotal() * 1000;
 
-        onStart.setBackgroundResource(R.drawable.play);
         etapeTimerView.setBackgroundResource(R.drawable.dot);
         globalTimerView.setBackgroundResource(R.drawable.dot);
 
 
-        if (cycle != null) {
-            etapeTime = cycle.getLong("etapeTime");
-            globalTime = cycle.getLong("globalTime");
+        if (savedInstanceState != null) {
+            etapeTime = savedInstanceState.getLong("etapeTime");
+            globalTime = savedInstanceState.getLong("globalTime");
+            started = savedInstanceState.getInt("started");
             if (etape > 0){
-                etape = cycle.getInt("etape")-1;
+                etape = savedInstanceState.getInt("etape")-1;
             }
-            next();
+            if (started == 0) {
+                onStart.setBackgroundResource(R.drawable.pause);
+                startGlobalTimer(globalTime);
+                next();
+            }
         }
-        //timerView.setBackgroundResource(R.drawable.play);
+
 
 
         updateEtapeTime();
@@ -109,7 +114,7 @@ public class Timer extends AppCompatActivity implements Serializable {
     public void onBegin(View view) {
         if (started == 2) {
             onStart.setBackgroundResource(R.drawable.pause);
-            startGlobalTimer();
+            startGlobalTimer(globalTime);
             next();
         } else if (started == 1) {
             this.Start();
@@ -175,35 +180,30 @@ public class Timer extends AppCompatActivity implements Serializable {
             if (seanceCycle.get(etape) == "Preparation") {
                 descriptif.setText(seanceCycle.get(etape));
                 descriptif2.setText(seanceCycle.get(etape + 1));
-                play();
                 getWindow().getDecorView().setBackgroundColor(Color.rgb(232, 117, 117));
-                startTimer(seance.preparation * 1000);
-
+                ifBundleExist(seance.preparation);
             }
             if (seanceCycle.get(etape) == "Travail") {
                 descriptif.setText("Travail");
                 descriptif2.setText(seanceCycle.get(etape + 1));
-                play();
                 getWindow().getDecorView().setBackgroundColor(Color.rgb(139, 231, 127));
-                startTimer(seance.travail * 1000);
+                ifBundleExist(seance.travail);
             }
             if (seanceCycle.get(etape) == "Repos") {
                 descriptif.setText("Repos");
                 descriptif2.setText(seanceCycle.get(etape + 1));
-                play();
                 getWindow().getDecorView().setBackgroundColor(Color.rgb(232, 117, 117));
-                startTimer(seance.repos * 1000);
+                ifBundleExist(seance.repos);
             }
-            if (seanceCycle.get(etape) == "Repos Sequence") {
-                descriptif.setText("Repos Sequence");
+            if (seanceCycle.get(etape) == "Repos Long") {
+                descriptif.setText("Repos Long");
                 if (etape + 1 == seanceCycle.size()) {
                     descriptif2.setText("FIN");
                 } else {
                     descriptif2.setText(seanceCycle.get(etape + 1));
                 }
-                play();
                 getWindow().getDecorView().setBackgroundColor(Color.rgb(232, 117, 117));
-                startTimer(seance.reposLong * 1000);
+                ifBundleExist(seance.reposLong);
             }
             etape++;
         } else {
@@ -214,9 +214,19 @@ public class Timer extends AppCompatActivity implements Serializable {
 
     }
 
-    public void startGlobalTimer() {
+    public void ifBundleExist(int tempsEtape){
+        if (etapeTime == 0) {
+            startTimer(Long.valueOf(tempsEtape * 1000));
+            play();
+        } else {
+            startTimer(etapeTime);
+        }
 
-        globalTimer = new CountDownTimer(globalTime, 10) {
+    }
+
+    public void startGlobalTimer(long time) {
+
+        globalTimer = new CountDownTimer(time, 10) {
 
             public void onTick(long millisUntilFinished) {
                 globalTime = millisUntilFinished;
@@ -234,7 +244,7 @@ public class Timer extends AppCompatActivity implements Serializable {
     }
 
 
-    private void startTimer(int time) {
+    private void startTimer(long time) {
 
         timer = new CountDownTimer(time, 10) {
 
@@ -254,7 +264,11 @@ public class Timer extends AppCompatActivity implements Serializable {
 
 
     public void play() {
-        player = null;
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
+        }
         player = MediaPlayer.create(this, R.raw.bell);
         player.start();
     }
@@ -262,37 +276,23 @@ public class Timer extends AppCompatActivity implements Serializable {
     @Override
     public void onSaveInstanceState(Bundle cycle) {
         super.onSaveInstanceState(cycle);
-        Pause();
+        globalTimer.cancel();
+        timer.cancel();
         cycle.putLong("globalTime", globalTime);
         cycle.putLong("etapeTime", etapeTime);
         cycle.putInt("etape", etape);
+        cycle.putInt("started", started);
     }
-
-    /*@Override
-    public void onRestoreInstanceState(Bundle cycle) {
-        super.onSaveInstanceState(cycle);
-        etapeTime = cycle.getLong("etapeTime");
-        globalTime = cycle.getLong("globalTime");
-        if (etape > 0){
-            etape = cycle.getInt("etape")-1;
-        }
-        updateEtapeTime();
-        updateGlobalTime();
-        next();
-
-    }*/
 
 
 
     @Override
     public void onBackPressed() {
-        finish();
+        Log.i("TAG", "ONBACKPRESSED");
+        Pause();
+        this.player = null;
+        this.finish();
         super.onBackPressed();
-    }
-
-    public void setColor(String color) {
-        if (color == "red") {
-        }
     }
 
     @Override

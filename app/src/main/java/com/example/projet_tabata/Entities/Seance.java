@@ -44,7 +44,7 @@ public class Seance implements Serializable {
                 this.seanceCycles.add("Travail");
                 this.seanceCycles.add("Repos");
             }
-            this.seanceCycles.add("Repos Sequence");
+            this.seanceCycles.add("Repos Long");
         }
         return this.seanceCycles;
 

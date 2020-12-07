@@ -3,8 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/font"
     android:layout_height="match_parent"
     tools:context=".Activities.Fin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clickable="false"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="false"
+        android:weightSum="3"
+        android:focusableInTouchMode="false">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="SEANCE TERMINEE"
+            android:textColor="@color/primary"
+            android:textSize="40sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/muscu" />
+
+        <TextView
+            android:id="@+id/photo"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="100sp"
+            android:layout_marginVertical="30sp"
+            android:layout_weight="1"
+            android:background="@drawable/dot"
+            android:gravity="center"
+            android:onClick="photo"
+            android:text="Prendre une photo"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

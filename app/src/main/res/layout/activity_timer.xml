@@ -90,6 +90,7 @@
 
         <TextView
             android:id="@+id/onStart"
+            android:background="@drawable/play"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="80sp"
