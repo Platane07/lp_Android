@@ -34,6 +34,7 @@ public class Seance implements Serializable {
         seanceCycles = new ArrayList<>();
     }
 
+    //Création de la liste que l'on va parcourir pour faire avancer le tabatatimer
     public ArrayList getSeanceCycle() {
         this.seanceCycles.clear();
 
@@ -50,6 +51,7 @@ public class Seance implements Serializable {
 
     }
 
+    //Récupération du temps total de l'activité
     public int getTempsTotal(){
         this.tempsTotal = 0;
 

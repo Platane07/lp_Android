@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.example.projet_tabata.Activities.Home;
 import com.example.projet_tabata.R;
 
+//Splashcreen avec temps limité et insertion d'une image
 public class SplashScreen extends AppCompatActivity {
     Animation anim;
     ImageView imageView;

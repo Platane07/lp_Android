@@ -97,7 +97,7 @@
             android:layout_marginVertical="20sp"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="onBegin"
+            android:onClick="BoutonStartPause"
             android:textSize="30sp" />
 
 

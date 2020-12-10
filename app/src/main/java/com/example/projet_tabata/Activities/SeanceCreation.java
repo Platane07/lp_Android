@@ -48,6 +48,7 @@ public class SeanceCreation extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        //Création de l'activité en fonction de l'action de l'utilisateur (si il veut modifier la séance, créer une séance ou encore si il vient de faire le tuto
         if (intent.getSerializableExtra("SeanceUpdate") != null){
             newSeance = (Seance) intent.getSerializableExtra("SeanceUpdate");
             modif = true;
@@ -57,18 +58,13 @@ public class SeanceCreation extends AppCompatActivity {
             newSeance = new Seance("", 1,1,1,1,1,1);
         }
 
-
         tempsTotal = findViewById(R.id.tempsTotal);
         setTempsTotal();
-
         setUpPicker();
-
-
-
-
 
     }
 
+    //Création des numberPicker en mise en place du nombre minimum et maximum pour chacun
     public void setUpPicker(){
         preparationPicker = findViewById(R.id.EditPrep);
         sequencesPicker = findViewById(R.id.EditSeq);
@@ -154,6 +150,7 @@ public class SeanceCreation extends AppCompatActivity {
 
     }
 
+    //fonction qui actualise le temps total en bas de l'activité lorsque la valeur d'un numberpicker est changé
     public void setTempsTotal(){
         if (newSeance.getTempsTotal() > 60) {
             tempsTotal.setText(Integer.toString(newSeance.getTempsTotal() / 60) + ":" + Integer.toString(newSeance.getTempsTotal() % 60));
@@ -163,6 +160,8 @@ public class SeanceCreation extends AppCompatActivity {
         }
     }
 
+
+    //Lorsqu'on appuie sur le bouton sauvegarder, ouvre une boite de dialogue qui demande le nom de la séance et le sauvegarde ou modifier une séance déjà existante
     public void Sauvegarder(View v){
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -206,8 +205,9 @@ public class SeanceCreation extends AppCompatActivity {
 
 
         }
-    public void Commencer(View v) {
 
+    //Commencer le timer
+    public void Commencer(View v) {
         Intent intent = new Intent(this, Timer.class);
         intent.putExtra("Seance", newSeance);
         startActivity(intent);

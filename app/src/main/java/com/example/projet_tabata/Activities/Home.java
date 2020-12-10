@@ -37,6 +37,8 @@ public class Home extends AppCompatActivity {
         AfficheSeances();
     }
 
+
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -46,19 +48,21 @@ public class Home extends AppCompatActivity {
 
 
 
+    //Créer nouvel entrainement (si déjà la base de données ne contient pas d'entrainements alors la création se fait en mode tuto (avec des fragments)
     public void creer (View v){
         if (seances.size() > 0 ) {
             Intent intent = new Intent(this, SeanceCreation.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(this, FirstSeanceCreation.class);
+            Intent intent = new Intent(this, Tutoriel.class);
             startActivity(intent);
         }
     }
-    public void AfficheSeances() {
 
+    //Remplissage de la list des séances de l'utilisateur
+    public void AfficheSeances() {
         ///////////////////////
-        // Classe asynchrone permettant de récupérer les users et les books
+        // Classe asynchrone permettant de récupérer les séances
         class GetSeances extends AsyncTask<Void, Void, List<Seance>> {
 
             @Override
@@ -93,17 +97,6 @@ public class Home extends AppCompatActivity {
                 SimpleAdapter simpleAdapter = new SimpleAdapter(getApplicationContext(), mapSeances, R.layout.affichage_seance,from, to);
                 listView.setAdapter(simpleAdapter);
 
-                listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -111,7 +104,6 @@ public class Home extends AppCompatActivity {
 
                     }
                 });
-
             }
         }
 
@@ -121,6 +113,7 @@ public class Home extends AppCompatActivity {
 
     }
 
+    //Suppression de la séance lorsque'on clique sur supprimer dans la boite de dialogue et refresh de la liste
     public void supprimerSeance(Seance seance){
 
         class DeleteDB extends AsyncTask<Void, Void, Void> {
@@ -145,14 +138,13 @@ public class Home extends AppCompatActivity {
         dDB.execute();
     }
 
+    //Fonction qui affiche la boite de dialogue pour chaque séance de la liste
     public void afficherAlertDialog(Seance seance){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 Home.this );
 
-        // set title
         alertDialogBuilder.setTitle(seance.name);
 
-        // set dialog message
         alertDialogBuilder
                 .setMessage("Que souhaitez-vous faire ?")
                 .setCancelable(true)
@@ -176,11 +168,7 @@ public class Home extends AppCompatActivity {
                         supprimerSeance(seance);
                     }
                 });
-
-        // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
         alertDialog.show();
     }
 }

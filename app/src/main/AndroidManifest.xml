@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetTabata">
         <activity android:name=".Activities.Fin"></activity>
-        <activity android:name=".Activities.FirstSeanceCreation" android:screenOrientation="portrait" />
+        <activity android:name=".Activities.Tutoriel" android:screenOrientation="portrait" />
         <activity android:name=".Activities.SeanceCreation" android:screenOrientation="portrait" />
         <activity android:name=".Activities.Timer"/>
         <activity android:name=".Activities.Home" android:screenOrientation="portrait" />

@@ -36,4 +36,10 @@ public class Fin extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Impossible d'utiliser votre appareil photo", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void accueil(View v){
+        Intent intent = new Intent(getApplicationContext(), Home.class);
+        startActivity(intent);
+        this.finish();
+    }
 }

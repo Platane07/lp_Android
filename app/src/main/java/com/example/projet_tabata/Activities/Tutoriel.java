@@ -25,7 +25,9 @@ import com.example.projet_tabata.Fragments.ReposLong;
 import com.example.projet_tabata.Fragments.Travail;
 import com.example.projet_tabata.R;
 
-public class FirstSeanceCreation extends AppCompatActivity {
+
+//Classe qui gère le tutoriel, c'est à dire la première séance créée.
+public class Tutoriel extends AppCompatActivity {
     private DatabaseClient mDb;
 
     String[] etapeFragments  = {"RIEN","tmpsPreparation","nbSequences", "nbCycles", "tmpsTravail", "tmpsReposCycle", "tmpsReposSequence","commencer"};
@@ -53,7 +55,6 @@ public class FirstSeanceCreation extends AppCompatActivity {
     NumberPicker secReposLongPicker;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,6 @@ public class FirstSeanceCreation extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new Preparation(), "preparationFrag").commit();
         } else {
-                //Restore the fragment's instance
                 getSupportFragmentManager().getFragment(savedInstanceState, "travailFrag");
             }
         }
@@ -119,6 +119,7 @@ public class FirstSeanceCreation extends AppCompatActivity {
 
 
 
+    //A la manière du tabatatimer, une liste est parcourue pour enchainer les fragments
     public void nextForm(){
         etape++;
         switch (etapeFragments[etape]){
@@ -196,21 +197,24 @@ public class FirstSeanceCreation extends AppCompatActivity {
 
     }
 
+
+
+    //Restore le fragment d'avant quand on fait un retour arrière
     @Override
     public void onBackPressed(){
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0){
             fm.popBackStack();
-            Restore();
             etape--;
         } else {
             super.onBackPressed();
         }
     }
 
+
+    //Sauvegarde des fragments lorsqu'il est écrasé
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-
         state.putInt("preparation", preparation);
         state.putInt("sequences", sequences);
         state.putInt("cycles", cycles);
@@ -221,18 +225,8 @@ public class FirstSeanceCreation extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
 
     }
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstance){
-        state = savedInstance;
-        Restore();
-    }
 
-    public void Restore(){
-        if (state.getInt("preparation") > 60 ) {
-            minPreparationPicker.setValue(state.getInt("preparation")/60);
-            secPreparationPicker.setValue(state.getInt("preparation")%60);
-        }
-    }
+
 
 
 }
